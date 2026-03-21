@@ -46,12 +46,7 @@ jobs:
 #        run: pnpm run typecheck
 
       - name: Generate
-        env:
-          BASE_PATH: '/templates-dashboard/'
-        run: pnpm run generate --base=${{ env.BASE_PATH }}
-
-      - name: Copy index.html to 404.html for SPA fallback
-        run: cp dist/index.html dist/404.html
+        run: pnpm run generate
 
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
