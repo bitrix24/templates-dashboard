@@ -16,6 +16,9 @@ concurrency:
 jobs:
   build:
     runs-on: ubuntu-latest
+    env:
+      NUXT_PUBLIC_SITE_URL: https://bitrix24.github.io
+      NUXT_PUBLIC_BASE_URL: /templates-dashboard
 
     steps:
       - name: Checkout
@@ -42,10 +45,10 @@ jobs:
 #      - name: Typecheck
 #        run: pnpm run typecheck
 
-      - name: Build
+      - name: Generate
         env:
           BASE_PATH: '/templates-dashboard/'
-        run: pnpm exec vite build --base=${{ env.BASE_PATH }}
+        run: pnpm run generate --base=${{ env.BASE_PATH }}
 
       - name: Copy index.html to 404.html for SPA fallback
         run: cp dist/index.html dist/404.html

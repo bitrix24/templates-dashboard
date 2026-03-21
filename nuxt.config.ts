@@ -2,6 +2,9 @@ import { contentLocales } from './i18n/i18n'
 
 const extraAllowedHosts = (process?.env.NUXT_ALLOWED_HOSTS?.split(',').map((s: string) => s.trim()).filter(Boolean)) ?? []
 
+const prodUrl = process?.env.NUXT_PUBLIC_SITE_URL ?? ''
+const baseUrl = process?.env.NUXT_PUBLIC_BASE_URL ?? ''
+
 export default defineNuxtConfig({
   modules: [
     '@nuxt/eslint',
@@ -13,14 +16,21 @@ export default defineNuxtConfig({
 
   devtools: { enabled: false },
 
+  app: {
+    baseURL: `${baseUrl}/`,
+    buildAssetsDir: '/_nuxt/',
+    head: {},
+    rootAttrs: { 'data-vaul-drawer-wrapper': '' }
+  },
+
   runtimeConfig: {
     /**
      * @memo this will be overwritten from .env or Docker_*
      * @see https://nuxt.com/docs/guide/going-further/runtime-config#example
      */
     public: {
-      siteUrl: '',
-      baseUrl: ''
+      siteUrl: prodUrl,
+      baseUrl: baseUrl
     }
   },
 
