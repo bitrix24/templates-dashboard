@@ -1,0 +1,176 @@
+<script setup lang="ts">
+import * as z from 'zod'
+import { reactive, ref } from 'vue'
+import type { FormSubmitEvent } from '@bitrix24/b24ui-nuxt'
+import CheckLIcon from '@bitrix24/b24icons-vue/outline/CheckLIcon'
+
+const toast = useToast()
+
+const fileRef = ref<HTMLInputElement>()
+
+const profileSchema = z.object({
+  name: z.string().min(2, 'Too short'),
+  email: z.email('Invalid email'),
+  username: z.string().min(2, 'Too short'),
+  avatar: z.string().optional(),
+  bio: z.string().optional()
+})
+
+type ProfileSchema = z.output<typeof profileSchema>
+
+const profile = reactive<Partial<ProfileSchema>>({
+  name: 'System User',
+  email: 'system.user@example.com',
+  username: 'system-user',
+  avatar: undefined,
+  bio: undefined
+})
+
+async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
+  toast.add({
+    title: 'Success',
+    description: 'Your settings have been updated.',
+    icon: CheckLIcon,
+    color: 'air-primary-success'
+  })
+  console.log(event.data)
+}
+
+function onFileChange(e: Event) {
+  const input = e.target as HTMLInputElement
+
+  if (!input.files?.length) {
+    return
+  }
+
+  profile.avatar = URL.createObjectURL(input.files[0])
+}
+
+function onFileClick() {
+  fileRef.value?.click()
+}
+</script>
+
+<template>
+  <B24Form
+    id="settings"
+    :schema="profileSchema"
+    :state="profile"
+    @submit="onSubmit"
+  >
+    <B24PageCard
+      title="Profile"
+      description="This information will be published."
+      variant="tinted-alt"
+      orientation="horizontal"
+      class="mb-0 base-mode"
+      :b24ui="{
+        root: 'rounded-none sm:rounded-t-3xl',
+        container: 'py-4 sm:py-2 items-center grid grid-cols-[1fr_auto]',
+        title: 'text-(--ui-color-palette-gray-70)',
+        description: 'text-(--ui-color-palette-gray-70)'
+      }"
+    >
+      <SettingIcon class="flex-1 ml-auto size-[80px]" />
+    </B24PageCard>
+    <B24PageCard
+      variant="outline-no-accent"
+      class="base-mode"
+      :b24ui="{
+        root: 'rounded-none sm:rounded-b-3xl'
+      }"
+    >
+      <B24FormField
+        name="name"
+        label="Name"
+        description="Will appear on receipts, invoices, and other communication."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <B24Input
+          v-model="profile.name"
+          autocomplete="off"
+        />
+      </B24FormField>
+      <B24Separator />
+      <B24FormField
+        name="email"
+        label="Email"
+        description="Used to sign in, for email receipts and product updates."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <B24Input
+          v-model="profile.email"
+          type="email"
+          autocomplete="off"
+        />
+      </B24FormField>
+      <B24Separator />
+      <B24FormField
+        name="username"
+        label="Username"
+        description="Your unique username for logging in and your profile URL."
+        required
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+      >
+        <B24Input
+          v-model="profile.username"
+          type="username"
+          autocomplete="off"
+        />
+      </B24FormField>
+      <B24Separator />
+      <B24FormField
+        name="avatar"
+        label="Avatar"
+        description="JPG, GIF or PNG. 1MB Max."
+        class="flex max-sm:flex-col justify-between sm:items-center gap-4"
+      >
+        <div class="flex flex-wrap items-center gap-3">
+          <B24Avatar
+            :src="profile.avatar"
+            :alt="profile.name"
+            size="lg"
+          />
+          <B24Button
+            label="Choose"
+            color="neutral"
+            @click="onFileClick"
+          />
+          <input
+            ref="fileRef"
+            type="file"
+            class="hidden"
+            accept=".jpg, .jpeg, .png, .gif"
+            @change="onFileChange"
+          >
+        </div>
+      </B24FormField>
+      <B24Separator />
+      <B24FormField
+        name="bio"
+        label="Bio"
+        description="Brief description for your profile. URLs are hyperlinked."
+        class="flex max-sm:flex-col justify-between items-start gap-4"
+        :b24ui="{ container: 'w-full' }"
+      >
+        <B24Textarea
+          v-model="profile.bio"
+          :rows="5"
+          autoresize
+          class="w-full"
+        />
+      </B24FormField>
+      <div>
+        <B24Button
+          form="settings"
+          label="Save changes"
+          color="air-primary"
+          type="submit"
+          class="w-fit lg:ms-auto"
+        />
+      </div>
+    </B24PageCard>
+  </B24Form>
+</template>

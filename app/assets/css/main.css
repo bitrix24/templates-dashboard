@@ -1,0 +1,16 @@
+@import "tailwindcss" theme(static);
+@import "@bitrix24/b24ui-nuxt";
+
+/**
+ * Custom bg
+ */
+@layer base {
+  .edge-dark {
+    --air-theme-bg-image: url(../bg/astronomical-watercolor.jpg);
+    --air-theme-bg-position: 0 0;
+    --air-theme-bg-size: cover;
+    --air-theme-bg-repeat: no-repeat;
+    --air-theme-bg-attachment: fixed;
+    --air-theme-bg-color: #325ab3;
+  }
+}
