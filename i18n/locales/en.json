@@ -1,4 +1,10 @@
 {
+  "mock": {
+    "toast": {
+      "title": "Demo Mode",
+      "description": "Changes will not be applied."
+    }
+  },
   "page": {
     "index": {
       "seo": {
@@ -10,6 +16,37 @@
       "message": {
         "title": "See new deals",
         "line1": "Remove user"
+      }
+    },
+    "install": {
+      "seo": {
+        "title": "Application Installation"
+      },
+      "ui": {
+        "title": "Application Installation"
+      },
+      "step": {
+        "init": {
+          "caption": "Please wait a moment..."
+        },
+        "events": {
+          "caption": "Events..."
+        },
+        "placement": {
+          "caption": "Widgets..."
+        },
+        "userFields": {
+          "caption": "Uf..."
+        },
+        "crm": {
+          "caption": "CRM..."
+        },
+        "serverSide": {
+          "caption": "Server-side scripts..."
+        },
+        "finish": {
+          "caption": "Completion"
+        }
       }
     }
   }

@@ -3,5 +3,5 @@ export default defineAppConfig({
   colorModeInitialValue: 'auto',
   // @memo fix in app/app.vue too
   colorModeTypeLight: 'light', // light | edge-dark
-  colorModeStorageKey: 'bitrix24-ui-template-dashboard-v2'
+  colorModeStorageKey: 'bitrix24-ui-template-dashboard'
 })
