@@ -1,5 +1,10 @@
 import { contentLocales } from './i18n/i18n'
 
+const pagesService = [
+  '/api/notifications.json',
+  '/404.html'
+]
+
 const extraAllowedHosts = (process?.env.NUXT_ALLOWED_HOSTS?.split(',').map((s: string) => s.trim()).filter(Boolean)) ?? []
 
 const prodUrl = process?.env.NUXT_PUBLIC_SITE_URL ?? ''
@@ -37,6 +42,16 @@ export default defineNuxtConfig({
   },
 
   compatibilityDate: '2024-07-11',
+
+  nitro: {
+    prerender: {
+      routes: [
+        ...pagesService
+      ],
+      crawlLinks: true,
+      autoSubfolderIndex: false
+    }
+  },
 
   vite: {
     plugins: [],
