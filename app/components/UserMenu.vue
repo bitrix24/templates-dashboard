@@ -23,7 +23,7 @@ const toast = useToast()
 const colorMode = useColorMode()
 const appConfig = useAppConfig()
 const b24Instance = useB24()
-const { isBxMobile } = useDashboard()
+const { isBitrixMobile } = useDevice()
 
 const $b24 = b24Instance.get() as B24Frame
 const b24Helper = b24Instance.getHelper()
@@ -68,7 +68,7 @@ function isWeCanMakeOperationForCurrentUser(): boolean {
       icon: Bitrix24Icon
     })
     return false
-  } else if (isBxMobile.value) {
+  } else if (isBitrixMobile.value) {
     toast.add({
       title: 'BitrixMobile detected!',
       description: 'Some Bitrix24 jsSdk features are limited in the mobile app.',

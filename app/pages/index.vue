@@ -15,7 +15,8 @@ import Market1Icon from '@bitrix24/b24icons-vue/main/Market1Icon'
 const { t } = useI18n()
 const { period, range, isLoading, loadDeals } = useDealStats()
 
-const { isNotificationsSlideoverOpen, isBxMobile } = useDashboard()
+const { isBitrixMobile } = useDevice()
+const { isNotificationsSlideoverOpen } = useDashboard()
 const b24Instance = useB24()
 
 const $b24 = b24Instance.get() as B24Frame
@@ -111,7 +112,7 @@ await initPage()
 
     <template #body>
       <B24DropdownMenu
-        v-if="!page.addButton.isOnlyBitrixMobile || (page.addButton.isOnlyBitrixMobile && isBxMobile)"
+        v-if="!page.addButton.isOnlyBitrixMobile || (page.addButton.isOnlyBitrixMobile && isBitrixMobile)"
         :items="page.addButton.items"
         :content="{ align: 'end' }"
       >

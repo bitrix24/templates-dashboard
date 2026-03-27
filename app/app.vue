@@ -11,10 +11,10 @@ const config = useRuntimeConfig()
 const toast = useToast()
 const { locale, defaultLocale, locales: localesI18n, setLocale } = useI18n()
 const b24Instance = useB24()
-const { isBxMobile } = useDashboard()
+const { isBitrixMobile } = useDevice()
 
 const isLoading = ref(true)
-const toaster: ToasterProps = { position: isBxMobile.value ? 'bottom-center' : 'top-right' }
+const toaster: ToasterProps = { position: isBitrixMobile.value ? 'bottom-center' : 'top-right' }
 
 const lang = computed(() => locales[locale.value]?.code || defaultLocale)
 const dir = computed(() => locales[locale.value]?.dir || 'ltr')

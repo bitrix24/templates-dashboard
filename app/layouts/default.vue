@@ -179,7 +179,6 @@ onMounted(async () => {
     unit="px"
     storage="local"
   >
-    <!-- @todo: after UI update fix body -->
     <B24DashboardSidebar
       id="default"
       v-model:open="open"
@@ -187,7 +186,6 @@ onMounted(async () => {
       collapsible
       resizable
       class="border-e-1"
-      :b24ui="{ body: 'light:[--leftmenu-group-stroke:var(--ui-color-base-30)]' }"
     >
       <template #header="{ collapsed }">
         <B24DashboardSidebarCollapse :icon="HamburgerMenuIcon" class="size-9 px-2" />

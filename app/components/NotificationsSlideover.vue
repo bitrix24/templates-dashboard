@@ -2,7 +2,8 @@
 import type { Notification } from '~/types'
 import { formatTimeAgo } from '@vueuse/core'
 
-const { isNotificationsSlideoverOpen, isBxMobile } = useDashboard()
+const { isBitrixMobile } = useDevice()
+const { isNotificationsSlideoverOpen } = useDashboard()
 
 const { data: notifications } =  await useFetch<Notification[]>('/api/notifications')
 </script>
@@ -11,7 +12,7 @@ const { data: notifications } =  await useFetch<Notification[]>('/api/notificati
   <B24Slideover
     v-model:open="isNotificationsSlideoverOpen"
     title="Notifications"
-    :inset="isBxMobile"
+    :inset="isBitrixMobile"
     :b24ui="{
       content: 'sm:max-w-[470px]',
       body: 'scrollbar-thin scrollbar-transparent'
