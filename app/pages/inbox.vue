@@ -13,15 +13,15 @@ const tabItems = [{
 }]
 const selectedTab = ref('all')
 
-const { data: mails } = useFetch('/api/mails', { initialData: [] }).json<Mail[]>()
+const { data: mails } = await useFetch<Mail[]>('/api/mails', { default: () => [] })
 
 // Filter mails based on the selected tab
 const filteredMails = computed(() => {
   if (selectedTab.value === 'unread') {
-    return mails.value?.filter(mail => !!mail.unread) ?? []
+    return mails.value.filter(mail => !!mail.unread)
   }
 
-  return mails.value ?? []
+  return mails.value
 })
 
 const selectedMail = ref<Mail | null>()
@@ -44,6 +44,7 @@ watch(filteredMails, () => {
   }
 })
 
+// @todo fix this
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isMobile = breakpoints.smaller('lg')
 </script>
