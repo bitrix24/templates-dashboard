@@ -1,7 +1,6 @@
 import type { DataRecord, Period, Range, Sale, Stat } from '../../types'
 import type { B24Frame } from '@bitrix24/b24jssdk'
 import type { PartialStats } from './api'
-import { ref, shallowRef, computed, watch, nextTick } from 'vue'
 import { createSharedComposable } from '@vueuse/core'
 import { eachDayOfInterval, sub } from 'date-fns'
 import { SdkError } from '@bitrix24/b24jssdk'
