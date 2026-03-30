@@ -36,7 +36,7 @@ const xTicks = (i: number) => {
 }
 
 const isOneCurrency = computed(() => {
-  return currencyListData.value.length < 2
+  return currencyListData.value.length === 1
 })
 
 const firstCurrency = computed(() => {
