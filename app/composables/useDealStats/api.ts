@@ -40,7 +40,7 @@ const mapStatus: Record<Semantic, SaleStatus> = {
  * @param b24 - B24Frame instance for executing queries
  * @param start - Interval start (time is set to 00:00:00)
  * @param end - Interval end (time is set to 23:59:59)
- * @param defLocale - Default locale
+ * @param defaultCurrency - Default locale
  * @param cb - Optional callback called after processing each page of data
  * @returns Object with aggregated deal data
  *
