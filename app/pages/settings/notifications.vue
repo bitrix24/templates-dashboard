@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { reactive } from 'vue'
 import CheckLIcon from '@bitrix24/b24icons-vue/outline/CheckLIcon'
 
 const toast = useToast()

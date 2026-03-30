@@ -1,5 +1,4 @@
 <script setup lang="ts">
-import { ref } from 'vue'
 import { sleepAction } from '../../utils'
 
 withDefaults(defineProps<{
@@ -25,6 +24,7 @@ async function onSubmit() {
     <slot />
 
     <template #body>
+      <!-- @todo Fix this -->
       <div class="mb-0.5 flex items-center justify-between gap-[10px] border-t-1 border-t-(--ui-color-divider-default) pt-[18px]">
         <B24Button
           label="Cancel"

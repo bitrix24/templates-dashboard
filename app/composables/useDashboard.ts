@@ -1,5 +1,3 @@
-import { ref, watch } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
 import { createSharedComposable } from '@vueuse/core'
 
 const _useDashboard = () => {

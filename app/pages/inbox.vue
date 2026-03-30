@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { Mail } from '../types'
-import { computed, ref, watch } from 'vue'
-import { useFetch, useBreakpoints, breakpointsTailwind } from '@vueuse/core'
+import { useBreakpoints, breakpointsTailwind } from '@vueuse/core'
 import MailOpenIcon from '@bitrix24/b24icons-vue/outline/MailOpenIcon'
 
 const tabItems = [{
@@ -13,16 +12,15 @@ const tabItems = [{
 }]
 const selectedTab = ref('all')
 
-// @todo: change mock
-const { data: mails } = useFetch('https://dashboard-template.nuxt.dev/api/mails', { initialData: [] }).json<Mail[]>()
+const { data: mails } = await useFetch<Mail[]>('/api/mails', { default: () => [] })
 
 // Filter mails based on the selected tab
 const filteredMails = computed(() => {
   if (selectedTab.value === 'unread') {
-    return mails.value?.filter(mail => !!mail.unread) ?? []
+    return mails.value.filter(mail => !!mail.unread)
   }
 
-  return mails.value ?? []
+  return mails.value
 })
 
 const selectedMail = ref<Mail | null>()
@@ -45,6 +43,7 @@ watch(filteredMails, () => {
   }
 })
 
+// @todo fix this
 const breakpoints = useBreakpoints(breakpointsTailwind)
 const isMobile = breakpoints.smaller('lg')
 </script>

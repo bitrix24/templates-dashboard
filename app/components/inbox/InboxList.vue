@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Mail } from '../../types'
-import { ref, watch } from 'vue'
 import { format, isToday } from 'date-fns'
 
 const props = defineProps<{
@@ -23,7 +22,7 @@ watch(selectedMail, () => {
 
 defineShortcuts({
   arrowdown: () => {
-    const index = props.mails.findIndex(mail => mail.id === selectedMail.value?.id)
+    const index = props.mails.findIndex((mail: Mail) => mail.id === selectedMail.value?.id)
 
     if (index === -1) {
       selectedMail.value = props.mails[0]
@@ -32,7 +31,7 @@ defineShortcuts({
     }
   },
   arrowup: () => {
-    const index = props.mails.findIndex(mail => mail.id === selectedMail.value?.id)
+    const index = props.mails.findIndex((mail: Mail) => mail.id === selectedMail.value?.id)
 
     if (index === -1) {
       selectedMail.value = props.mails[props.mails.length - 1]

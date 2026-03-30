@@ -1,4 +1,5 @@
-const members = [{
+// @todo: change mock
+const membersGet = [{
   name: 'Anthony Fu',
   username: 'antfu',
   role: 'member',
@@ -56,5 +57,5 @@ const members = [{
 }]
 
 export default eventHandler(async () => {
-  return members
+  return membersGet
 })

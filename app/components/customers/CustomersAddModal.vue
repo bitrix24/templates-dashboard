@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { FormSubmitEvent } from '@bitrix24/b24ui-nuxt'
-import { ref, reactive } from 'vue'
 import * as z from 'zod'
 import CheckLIcon from '@bitrix24/b24icons-vue/outline/CheckLIcon'
 import PlusLIcon from '@bitrix24/b24icons-vue/outline/PlusLIcon'

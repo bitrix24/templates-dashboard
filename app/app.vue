@@ -77,6 +77,7 @@ onMounted(async () => {
 <template>
   <B24App :toaster="toaster" :locale="locales[locale]">
     <NuxtLoadingIndicator />
+
     <NuxtLayout>
       <NuxtPage />
     </NuxtLayout>

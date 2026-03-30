@@ -1,7 +1,10 @@
 import { contentLocales } from './i18n/i18n'
 
 const pagesService = [
-  '/api/notifications.json',
+  '/api/customers',
+  '/api/mails',
+  '/api/members',
+  '/api/notifications',
   '/404.html'
 ]
 

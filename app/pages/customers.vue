@@ -2,10 +2,9 @@
 import type { TableColumn, TableRow } from '@bitrix24/b24ui-nuxt'
 import type { Column } from '@tanstack/vue-table'
 import type { User } from '../types'
-import { useTemplateRef, h, ref, computed, watch, resolveComponent } from 'vue'
+import type { Row } from '@tanstack/table-core'
 import { upperFirst } from 'scule'
-import { useFetch } from '@vueuse/core'
-import { getPaginationRowModel, type Row } from '@tanstack/table-core'
+import { getPaginationRowModel } from '@tanstack/table-core'
 import CopyIcon from '@bitrix24/b24icons-vue/outline/CopyIcon'
 import ContactDetailsIcon from '@bitrix24/b24icons-vue/outline/ContactDetailsIcon'
 import WalletIcon from '@bitrix24/b24icons-vue/outline/WalletIcon'
@@ -33,8 +32,9 @@ const columnFilters = ref([{
 const columnVisibility = ref()
 const rowSelection = ref({ 3: true })
 
-// @todo: change mock
-const { data, isFetching } = useFetch('https://dashboard-template.nuxt.dev/api/customers', { initialData: [] }).json<User[]>()
+const { data, status } = await useFetch<User[]>('/api/customers', {
+  lazy: true
+})
 
 function onSelect(_: Event, row: TableRow<User>) {
   row.toggleSelected(!row.getIsSelected())
@@ -310,7 +310,7 @@ const isSomeSelect = computed<boolean>((): boolean => {
           class="shrink-0 bg-(--ui-color-design-outline-bg) rounded-none sm:rounded-t-lg"
           :data="data ?? []"
           :columns="columns"
-          :loading="isFetching"
+          :loading="status === 'pending'"
           @select="onSelect"
         >
           <template #actions-header="{ table: tableInSlot }">

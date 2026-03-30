@@ -3,7 +3,7 @@ export function randomInt(min: number, max: number): number {
 }
 
 export function randomFrom<T>(array: T[]): T {
-  return array[Math.floor(Math.random() * array.length)] as T
+  return array[Math.floor(Math.random() * array.length)]!
 }
 
 /**

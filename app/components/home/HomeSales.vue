@@ -1,9 +1,8 @@
 <script setup lang="ts">
 import type { TableColumn } from '@bitrix24/b24ui-nuxt'
 import type { TableMeta, Row } from '@tanstack/vue-table'
-import { h, resolveComponent } from 'vue'
-import { useDealStats } from '../../composables/useDealStats'
 import type { Sale } from '../../types'
+import { useDealStats } from '../../composables/useDealStats'
 import ChevronDownLIcon from '@bitrix24/b24icons-vue/outline/ChevronDownLIcon'
 
 const { salesData, isLoading, formatCurrency, formatDateTimeShort, openDeal } = useDealStats()

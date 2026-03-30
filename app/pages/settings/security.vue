@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import * as z from 'zod'
-import { reactive } from 'vue'
 import type { FormError } from '@bitrix24/b24ui-nuxt'
 
 const passwordSchema = z.object({

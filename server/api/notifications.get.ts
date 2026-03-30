@@ -1,7 +1,6 @@
-// import { sub } from 'date-fns'
+import { sub } from 'date-fns'
 
-// @todo add something random
-const notificationsJsonGet = [
+const notifications = [
   {
     id: 1,
     unread: true,
@@ -13,7 +12,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Your order #12345 has been confirmed and is being prepared for shipment.',
-    date: '2026-03-06T06:48:15.837Z'
+    date: sub(new Date(), { minutes: 7 }).toISOString()
   },
   {
     id: 2,
@@ -24,7 +23,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'We need your approval for the bulk purchase request from client XYZ.',
-    date: '2026-03-06T05:55:15.837Z'
+    date: sub(new Date(), { hours: 1 }).toISOString()
   },
   {
     id: 3,
@@ -36,7 +35,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Invoice #INV-2026-03-06 is now available for download in your account.',
-    date: '2026-03-06T03:55:15.837Z'
+    date: sub(new Date(), { hours: 3 }).toISOString()
   },
   {
     id: 4,
@@ -47,7 +46,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Payment of $2,500 has been successfully received. Thank you for your business!',
-    date: '2026-03-06T03:55:15.837Z'
+    date: sub(new Date(), { hours: 3 }).toISOString()
   },
   {
     id: 5,
@@ -58,7 +57,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Your subscription to Premium plan has been renewed for another month.',
-    date: '2026-03-05T23:55:15.837Z'
+    date: sub(new Date(), { hours: 7 }).toISOString()
   },
   {
     id: 6,
@@ -69,7 +68,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'A new lead has been assigned to you: Acme Corporation. Please contact them.',
-    date: '2026-03-05T03:55:15.837Z'
+    date: sub(new Date(), { days: 1, hours: 3 }).toISOString()
   },
   {
     id: 7,
@@ -82,7 +81,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Reminder: Follow up with client about the proposal sent yesterday.',
-    date: '2026-03-04T06:55:15.837Z'
+    date: sub(new Date(), { days: 2 }).toISOString()
   },
   {
     id: 8,
@@ -94,7 +93,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'The deal with Global Tech has been closed. Congratulations on the sale!',
-    date: '2026-03-01T02:55:15.837Z'
+    date: sub(new Date(), { days: 5, hours: 4 }).toISOString()
   },
   {
     id: 9,
@@ -106,7 +105,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Support ticket #T-4567 has been updated with a new message from customer.',
-    date: '2026-02-28T06:55:15.837Z'
+    date: sub(new Date(), { days: 6 }).toISOString()
   },
   {
     id: 10,
@@ -117,7 +116,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Your refund request has been processed and will reflect in 3-5 business days.',
-    date: '2026-02-28T06:55:15.837Z'
+    date: sub(new Date(), { days: 6 }).toISOString()
   },
   {
     id: 11,
@@ -128,7 +127,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'The product demo scheduled for tomorrow at 10 AM has been confirmed.',
-    date: '2026-02-27T06:55:15.837Z'
+    date: sub(new Date(), { days: 7 }).toISOString()
   },
   {
     id: 12,
@@ -139,7 +138,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Please review the contract attached and sign it by the end of day.',
-    date: '2026-02-25T06:55:15.837Z'
+    date: sub(new Date(), { days: 9 }).toISOString()
   },
   {
     id: 13,
@@ -151,7 +150,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Your quote #Q-789 has been approved by the client. Proceed with order.',
-    date: '2026-02-24T06:55:15.837Z'
+    date: sub(new Date(), { days: 10 }).toISOString()
   },
   {
     id: 14,
@@ -163,7 +162,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Stock alert: Item #XYZ-123 is back in stock. You can place an order now.',
-    date: '2026-02-23T06:55:15.837Z'
+    date: sub(new Date(), { days: 11 }).toISOString()
   },
   {
     id: 15,
@@ -174,7 +173,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Price drop alert: The item you viewed is now 15% off for a limited time.',
-    date: '2026-02-22T06:55:15.837Z'
+    date: sub(new Date(), { days: 12 }).toISOString()
   },
   {
     id: 16,
@@ -185,7 +184,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Meeting with sales team rescheduled to 3 PM today in Conference Room B.',
-    date: '2026-02-21T06:55:15.837Z'
+    date: sub(new Date(), { days: 14 }).toISOString()
   },
   {
     id: 17,
@@ -196,7 +195,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Task \'Prepare quarterly sales report\' has been completed by your team.',
-    date: '2026-02-20T06:55:15.837Z'
+    date: sub(new Date(), { days: 15, hours: 3 }).toISOString()
   },
   {
     id: 18,
@@ -207,7 +206,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Client feedback received: Positive review on Trustpilot. Great job!',
-    date: '2026-02-19T06:55:15.837Z'
+    date: sub(new Date(), { days: 15 }).toISOString()
   },
   {
     id: 19,
@@ -219,7 +218,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'New comment on your proposal from John Doe: \'Looks good, let\'s schedule a call\'.',
-    date: '2026-02-18T06:55:15.837Z'
+    date: sub(new Date(), { days: 16 }).toISOString()
   },
   {
     id: 20,
@@ -231,7 +230,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Order #5678 has been shipped. Tracking number: 1Z999AA10123456784.',
-    date: '2026-02-17T06:55:15.837Z'
+    date: sub(new Date(), { days: 17 }).toISOString()
   },
   {
     id: 21,
@@ -242,7 +241,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Your invoice is overdue. Please process payment at your earliest convenience.',
-    date: '2026-02-17T06:55:15.837Z'
+    date: sub(new Date(), { days: 17 }).toISOString()
   },
   {
     id: 22,
@@ -253,7 +252,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'A new document has been shared with you: Sales Contract for Client A.',
-    date: '2026-02-16T06:55:15.837Z'
+    date: sub(new Date(), { days: 18 }).toISOString()
   },
   {
     id: 23,
@@ -264,7 +263,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Your monthly sales target has been updated. Check the dashboard.',
-    date: '2026-02-15T06:55:15.837Z'
+    date: sub(new Date(), { days: 19 }).toISOString()
   },
   {
     id: 24,
@@ -275,7 +274,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Reminder: You have a call with potential client in 30 minutes.',
-    date: '2026-02-14T06:55:15.837Z'
+    date: sub(new Date(), { days: 20 }).toISOString()
   },
   {
     id: 25,
@@ -287,7 +286,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'The proposal you sent has been viewed by the client 3 times today.',
-    date: '2026-02-14T06:55:15.837Z'
+    date: sub(new Date(), { days: 21 }).toISOString()
   },
   {
     id: 26,
@@ -299,7 +298,7 @@ const notificationsJsonGet = [
       }
     },
     body: 'Congratulations! You\'ve reached your quarterly sales goal.',
-    date: '2026-02-13T06:55:15.837Z'
+    date: sub(new Date(), { days: 22 }).toISOString()
   },
   {
     id: 27,
@@ -310,10 +309,10 @@ const notificationsJsonGet = [
       }
     },
     body: 'Action required: Please update the pipeline for deal #9876.',
-    date: '2026-02-12T06:55:15.837Z'
+    date: sub(new Date(), { days: 23 }).toISOString()
   }
 ]
 
 export default eventHandler(async () => {
-  return notificationsJsonGet
+  return notifications
 })

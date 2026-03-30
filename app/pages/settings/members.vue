@@ -1,23 +1,21 @@
 <script setup lang="ts">
-import { computed, ref } from 'vue'
-import { useFetch } from '@vueuse/core'
 import type { Member } from '../../types'
 import SearchIcon from '@bitrix24/b24icons-vue/outline/SearchIcon'
 
-// @todo: change mock
-const { data: members } = useFetch<Member[]>('https://dashboard-template.nuxt.dev/api/members', { initialData: [] }).json<Member[]>()
+const { data: members } = await useFetch<Member[]>('/api/members', { default: () => [] })
 
 const q = ref('')
 
 const filteredMembers = computed(() => {
-  return members.value?.filter((member) => {
+  return members.value.filter((member) => {
     return member.name.search(new RegExp(q.value, 'i')) !== -1 || member.username.search(new RegExp(q.value, 'i')) !== -1
-  }) ?? []
+  })
 })
 </script>
 
 <template>
   <div>
+    <!-- @todo: B24PageCard after UI update fix :b24ui -->
     <B24PageCard
       title="Members"
       description="Invite new members by email address."

@@ -1,7 +1,6 @@
 <script setup lang="ts">
-import * as z from 'zod'
-import { reactive, ref } from 'vue'
 import type { FormSubmitEvent } from '@bitrix24/b24ui-nuxt'
+import * as z from 'zod'
 import CheckLIcon from '@bitrix24/b24icons-vue/outline/CheckLIcon'
 
 const toast = useToast()
@@ -58,6 +57,7 @@ function onFileClick() {
     :state="profile"
     @submit="onSubmit"
   >
+    <!-- @todo: B24PageCard after UI update fix :b24ui -->
     <B24PageCard
       title="Profile"
       description="This information will be published."

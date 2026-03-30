@@ -1,5 +1,4 @@
 import type { B24FrameQueryParams, LoggerInterface } from '@bitrix24/b24jssdk'
-import { ref, nextTick } from 'vue'
 import { B24Frame, LoggerFactory, Result, SdkError, initializeB24Frame, useB24Helper, LoadDataType } from '@bitrix24/b24jssdk'
 
 let $b24: undefined | B24Frame = undefined

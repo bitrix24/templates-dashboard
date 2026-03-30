@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { Range } from '../../types'
-import { ref, computed } from 'vue'
 import { useDealStats } from '../../composables/useDealStats'
 import { getLocalTimeZone, CalendarDate, today } from '@internationalized/date'
 import CalendarIcon from '@bitrix24/b24icons-vue/outline/CalendarIcon'
@@ -43,10 +42,10 @@ const calendarRange = computed({
 })
 
 const isRangeSelected = (range: { days?: number, months?: number, years?: number }) => {
+  if (!selected.value.start || !selected.value.end) return false
+
   const currentDate = today(getLocalTimeZone())
   let startDate = currentDate.copy()
-
-  if (!selected.value.start || !selected.value.end) return false
 
   if (range.days) {
     startDate = startDate.subtract({ days: range.days })
@@ -55,6 +54,7 @@ const isRangeSelected = (range: { days?: number, months?: number, years?: number
   } else if (range.years) {
     startDate = startDate.subtract({ years: range.years })
   }
+
   const selectedStart = toCalendarDate(selected.value.start)
   const selectedEnd = toCalendarDate(selected.value.end)
 
@@ -105,6 +105,7 @@ const selectRange = (range: { days?: number, months?: number, years?: number }) 
           Pick a date
         </template>
       </span>
+
       <template #trailing>
         <ChevronDownLIcon class="size-5 shrink-0 text-description group-data-[state=open]:rotate-180 transition-transform duration-200" />
       </template>

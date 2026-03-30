@@ -1,6 +1,5 @@
 <script setup lang="ts">
 import type { DataRecord } from '../../types'
-import { useTemplateRef, computed } from 'vue'
 import { VisXYContainer, VisLine, VisAxis, VisArea, VisCrosshair, VisTooltip } from '@unovis/vue'
 import { useElementSize } from '@vueuse/core'
 import { useDealStats } from '../../composables/useDealStats'

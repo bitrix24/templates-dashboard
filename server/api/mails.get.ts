@@ -1,6 +1,7 @@
 import { sub } from 'date-fns'
 
-const mails = [{
+// @todo: change mock
+const mailsGet = [{
   id: 1,
   from: {
     name: 'Alex Smith',
@@ -687,5 +688,5 @@ Emergency: (555) 987-6544`,
 }]
 
 export default eventHandler(async () => {
-  return mails
+  return mailsGet
 })

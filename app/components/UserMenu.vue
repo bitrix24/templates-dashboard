@@ -1,7 +1,6 @@
 <script setup lang="ts">
 import type { B24Frame } from '@bitrix24/b24jssdk'
 import type { DropdownMenuItem } from '@bitrix24/b24ui-nuxt'
-import { computed } from 'vue'
 import { useB24 } from '../composables/useB24'
 import { TypeSpecificUrl } from '@bitrix24/b24jssdk'
 import Expand1Icon from '@bitrix24/b24icons-vue/actions/Expand1Icon'
