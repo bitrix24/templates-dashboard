@@ -1,7 +1,7 @@
 import type { User } from '~/types'
 
 // @todo: change mock
-const customersGet: User[] = [{
+const customersJsonGet: User[] = [{
   id: 1,
   name: 'Alex Smith',
   email: 'alex.smith@example.com',
@@ -184,5 +184,5 @@ const customersGet: User[] = [{
 }]
 
 export default eventHandler(async () => {
-  return customersGet
+  return customersJsonGet
 })

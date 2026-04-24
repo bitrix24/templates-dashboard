@@ -36,9 +36,7 @@ const columnFilters = ref([{
 const columnVisibility = ref()
 const rowSelection = ref({ 3: true })
 
-const { data, status } = await useFetch<User[]>('/api/customers', {
-  lazy: true
-})
+const { data, status } = await useFetch<User[]>('/api/customers.json', { lazy: true })
 
 const processing = ref(false)
 

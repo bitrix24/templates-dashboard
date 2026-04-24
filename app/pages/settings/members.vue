@@ -2,7 +2,7 @@
 import type { Member } from '../../types'
 import SearchIcon from '@bitrix24/b24icons-vue/outline/SearchIcon'
 
-const { data: members } = await useFetch<Member[]>('/api/members', { default: () => [] })
+const { data: members } = await useFetch<Member[]>('/api/members.json', { default: () => [] })
 
 const q = ref('')
 

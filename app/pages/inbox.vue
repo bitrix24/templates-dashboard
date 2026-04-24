@@ -12,7 +12,7 @@ const tabItems = [{
 }]
 const selectedTab = ref('all')
 
-const { data: mails } = await useFetch<Mail[]>('/api/mails', { default: () => [] })
+const { data: mails } = await useFetch<Mail[]>('/api/mails.json', { default: () => [] })
 
 // Filter mails based on the selected tab
 const filteredMails = computed(() => {

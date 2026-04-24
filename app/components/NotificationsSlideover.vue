@@ -5,7 +5,7 @@ import { formatTimeAgo } from '@vueuse/core'
 const { isBitrixMobile } = useDevice()
 const { isNotificationsSlideoverOpen } = useDashboard()
 
-const { data: notifications } = await useFetch<Notification[]>('/api/notifications')
+const { data: notifications } = await useFetch<Notification[]>('/api/notifications.json')
 </script>
 
 <template>

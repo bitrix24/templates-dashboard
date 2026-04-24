@@ -1,5 +1,5 @@
 // @todo: change mock
-const membersGet = [{
+const membersJsonGet = [{
   name: 'Anthony Fu',
   username: 'antfu',
   role: 'member',
@@ -57,5 +57,5 @@ const membersGet = [{
 }]
 
 export default eventHandler(async () => {
-  return membersGet
+  return membersJsonGet
 })
