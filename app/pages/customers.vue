@@ -1,7 +1,7 @@
 <script setup lang="ts">
 import type { TableColumn, TableRow } from '@bitrix24/b24ui-nuxt'
 import type { Column } from '@tanstack/vue-table'
-import type { User } from '../types'
+import type { User } from '~/types'
 import type { Row } from '@tanstack/table-core'
 import { upperFirst } from 'scule'
 import { getPaginationRowModel } from '@tanstack/table-core'
@@ -308,7 +308,7 @@ const isSomeSelect = computed<boolean>((): boolean => {
           v-model:pagination="pagination"
           :pagination-options="{ getPaginationRowModel: getPaginationRowModel() }"
           class="shrink-0 bg-(--ui-color-design-outline-bg) rounded-none sm:rounded-t-lg"
-          :data="data ?? []"
+          :data="data"
           :columns="columns"
           :loading="status === 'pending'"
           @select="onSelect"
