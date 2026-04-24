@@ -5,6 +5,8 @@ import type { User } from '~/types'
 import type { Row } from '@tanstack/table-core'
 import { upperFirst } from 'scule'
 import { getPaginationRowModel } from '@tanstack/table-core'
+import { CustomersConfirmModal } from '#components'
+import { sleepAction } from '../utils'
 import CopyIcon from '@bitrix24/b24icons-vue/outline/CopyIcon'
 import ContactDetailsIcon from '@bitrix24/b24icons-vue/outline/ContactDetailsIcon'
 import WalletIcon from '@bitrix24/b24icons-vue/outline/WalletIcon'
@@ -22,6 +24,8 @@ const B24Badge = resolveComponent('B24Badge')
 const B24DropdownMenu = resolveComponent('B24DropdownMenu')
 const B24Checkbox = resolveComponent('B24Checkbox')
 
+const overlay = useOverlay()
+const confirm = overlay.create(CustomersConfirmModal)
 const toast = useToast()
 const table = useTemplateRef('table')
 
@@ -36,8 +40,32 @@ const { data, status } = await useFetch<User[]>('/api/customers', {
   lazy: true
 })
 
+const processing = ref(false)
+
 function onSelect(_: Event, row: TableRow<User>) {
   row.toggleSelected(!row.getIsSelected())
+}
+
+async function rowsActionDelete() {
+  const count = table.value?.tableApi?.getFilteredSelectedRowModel().rows.length ?? 0
+  const instance = confirm.open({
+    title: `Confirm deletion of ${count} customer${count > 1 ? 's' : ''}?`
+  })
+
+  if (await instance.result) {
+    processing.value = true
+
+    await sleepAction(5000)
+
+    toast.add({
+      title: `Customer${count > 1 ? 's' : ''} deleted`,
+      description: `The customer${count > 1 ? 's' : ''} has been deleted.`,
+      icon: TrashcanIcon,
+      color: 'air-primary-success'
+    })
+
+    processing.value = false
+  }
 }
 
 function getRowActions(row: Row<User>) {
@@ -77,13 +105,25 @@ function getRowActions(row: Row<User>) {
       label: 'Delete customer',
       icon: TrashcanIcon,
       color: 'air-primary-alert',
-      onSelect() {
-        toast.add({
-          title: 'Customer deleted',
-          description: 'The customer has been deleted.',
-          icon: TrashcanIcon,
-          color: 'air-primary-success'
+      async onSelect() {
+        const instance = confirm.open({
+          title: `Are you sure you want to delete ${row.original.name.toString()}?`
         })
+
+        if (await instance.result) {
+          processing.value = true
+
+          await sleepAction(5000)
+
+          toast.add({
+            title: 'Customer deleted',
+            description: 'The customer has been deleted.',
+            icon: TrashcanIcon,
+            color: 'air-primary-success'
+          })
+
+          processing.value = false
+        }
       }
     }
   ]
@@ -118,6 +158,15 @@ function getHeader(column: Column<User>, label: string) {
     }
   )
 }
+
+const isSomeSelect = computed<boolean>((): boolean => {
+  const selectedRows = table.value?.tableApi?.getFilteredSelectedRowModel()?.rows
+  return !!selectedRows?.length
+})
+
+const isLoading = computed(() => {
+  return status.value === 'pending' || processing.value === true
+})
 
 const columns: TableColumn<User>[] = [
   {
@@ -169,12 +218,19 @@ const columns: TableColumn<User>[] = [
         },
         'arrow': true,
         'items': getRowActions(row),
-        'aria-label': 'Actions dropdown'
+        'aria-label': 'Actions dropdown',
+        'disabled': isLoading.value,
+        // @todo move to b24ui
+        'b24ui': {
+          item: 'pe-4.5',
+          itemLeadingIcon: 'transition-none'
+        }
       }, () => h(B24Button, {
         'icon': MenuIcon,
         'color': 'air-tertiary-no-accent',
-        'size': 'sm',
-        'aria-label': 'Actions dropdown'
+        'size': 'md',
+        'aria-label': 'Actions dropdown',
+        'b24ui': { baseLine: '[--ui-btn-icon-size:24px]' }
       }))
     }
   },
@@ -255,11 +311,6 @@ const pagination = ref({
   pageIndex: 0,
   pageSize: 15
 })
-
-const isSomeSelect = computed<boolean>((): boolean => {
-  const selectedRows = table.value?.tableApi?.getFilteredSelectedRowModel()?.rows
-  return !!selectedRows?.length
-})
 </script>
 
 <template>
@@ -306,11 +357,13 @@ const isSomeSelect = computed<boolean>((): boolean => {
           v-model:column-visibility="columnVisibility"
           v-model:row-selection="rowSelection"
           v-model:pagination="pagination"
+          loading-color="air-primary"
+          loading-animation="swing"
+          :loading="isLoading"
           :pagination-options="{ getPaginationRowModel: getPaginationRowModel() }"
           class="shrink-0 bg-(--ui-color-design-outline-bg) rounded-none sm:rounded-t-lg"
           :data="data"
           :columns="columns"
-          :loading="status === 'pending'"
           @select="onSelect"
         >
           <template #actions-header="{ table: tableInSlot }">
@@ -365,15 +418,15 @@ const isSomeSelect = computed<boolean>((): boolean => {
           class="rounded-none sm:rounded-b-lg ps-1.5 relative border-t border-(--ui-color-divider-default) py-3 flex flex-row flex-nowrap gap-1.5 sm:gap-3 items-center justify-between bg-(--ui-color-design-outline-bg)"
           :class="[isSomeSelect ? 'sticky z-1 bottom-0 sm:-bottom-4 bitrix-mobile:bottom-0' : '']"
         >
-          <CustomersDeleteModal :count="table?.tableApi?.getFilteredSelectedRowModel().rows.length">
-            <B24Button
-              :disabled="!isSomeSelect"
-              label="Delete"
-              :icon="CrossLIcon"
-              :normal-case="false"
-              color="air-tertiary-no-accent"
-            />
-          </CustomersDeleteModal>
+          <B24Button
+            :disabled="!isSomeSelect"
+            loading-auto
+            label="Delete"
+            :icon="CrossLIcon"
+            :normal-case="false"
+            color="air-tertiary-no-accent"
+            @click="rowsActionDelete"
+          />
         </div>
       </div>
     </template>

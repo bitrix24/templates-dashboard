@@ -1,24 +1,16 @@
 <script setup lang="ts">
-import { sleepAction } from '../../utils'
+defineProps<{
+  title: string
+}>()
 
-withDefaults(defineProps<{
-  count?: number
-}>(), {
-  count: 0
-})
-
-const open = ref(false)
-
-async function onSubmit() {
-  await sleepAction(1000)
-  open.value = false
-}
+const emit = defineEmits<{
+  close: [confirmed: boolean]
+}>()
 </script>
 
 <template>
   <B24Modal
-    v-model:open="open"
-    :title="`Confirm deletion of ${count} customer${count > 1 ? 's' : ''}?`"
+    :title="title"
     :close="false"
     :b24ui="{ content: 'max-w-[420px]' }"
   >
@@ -35,13 +27,13 @@ async function onSubmit() {
           size="lg"
           loading-auto
           block
-          @click="onSubmit"
+          @click="emit('close', true)"
         />
         <B24Button
           label="Cancel"
           color="air-secondary-accent"
           block
-          @click="open = false"
+          @click="emit('close', false)"
         />
       </div>
     </template>
