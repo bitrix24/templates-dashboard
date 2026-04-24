@@ -34,7 +34,7 @@ useHead({
 })
 
 const title = 'Nuxt Dashboard Template'
-const description = 'A professional dashboard template built with Bitrix24 UI, featuring multiple pages, data visualization, and comprehensive management capabilities for creating powerful admin interfaces.'
+const description = 'A professional template based on Bitrix24 UI, featuring a multi-page layout, data visualization, and a full set of controls for creating powerful applications.'
 
 useSeoMeta({
   title,
