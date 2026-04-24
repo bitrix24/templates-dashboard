@@ -7,7 +7,6 @@ import { useRouter } from 'vue-router'
 // @todo test this ////
 // import { definePage } from 'vue-router/auto'
 import { useI18n } from 'vue-i18n'
-import { useHead } from '@unhead/vue'
 import { useB24 } from '../composables/useB24'
 import { sleepAction } from '../utils'
 // import { withoutTrailingSlash } from 'ufo'
