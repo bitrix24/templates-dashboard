@@ -18,24 +18,30 @@ async function onSubmit() {
 <template>
   <B24Modal
     v-model:open="open"
-    :title="`Delete ${count} customer${count > 1 ? 's' : ''}`"
-    :description="`Are you sure, this action cannot be undone.`"
+    :title="`Confirm deletion of ${count} customer${count > 1 ? 's' : ''}?`"
+    :close="false"
+    :b24ui="{ content: 'max-w-[420px]' }"
   >
     <slot />
 
     <template #body>
-      <!-- @todo Fix this -->
-      <div class="mb-0.5 flex items-center justify-between gap-[10px] border-t-1 border-t-(--ui-color-divider-default) pt-[18px]">
+      <ProseP accent="less">
+        Proceeding will result in complete loss of all customer data.
+      </ProseP>
+      <div class="mt-4.5 mb-4 flex items-center justify-center gap-2.5">
         <B24Button
-          label="Cancel"
-          color="air-tertiary-no-accent"
-          @click="open = false"
+          label="Confirm"
+          color="air-primary"
+          size="lg"
+          loading-auto
+          block
+          @click="onSubmit"
         />
         <B24Button
-          label="Yes"
-          color="air-primary-alert"
-          loading-auto
-          @click="onSubmit"
+          label="Cancel"
+          color="air-secondary-accent"
+          block
+          @click="open = false"
         />
       </div>
     </template>

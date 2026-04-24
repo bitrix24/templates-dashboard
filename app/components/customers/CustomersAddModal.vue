@@ -26,7 +26,7 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
 </script>
 
 <template>
-  <B24Modal v-model:open="open" title="New customer" description="Add a new customer to CRM">
+  <B24Modal v-model:open="open" title="New customer" description="Add a new customer to the CRM">
     <B24Button label="New customer" color="air-primary" :icon="PlusLIcon" />
 
     <template #body>
@@ -42,16 +42,18 @@ async function onSubmit(event: FormSubmitEvent<Schema>) {
         <B24FormField label="Email" name="email">
           <B24Input v-model="state.email" placeholder="john.doe@example.com" class="w-full" />
         </B24FormField>
-        <div class="mt-8 mb-0.5 flex items-center justify-between gap-[10px] border-t-1 border-t-(--ui-color-divider-default) pt-[18px]">
-          <B24Button
-            label="Cancel"
-            color="air-tertiary-no-accent"
-            @click="open = false"
-          />
+        <div class="pt-4.5 mt-4.5 mb-4 flex items-center justify-start gap-2.5 border-t-1 border-t-(--ui-color-divider-default)">
           <B24Button
             label="Create"
             color="air-primary"
+            size="lg"
             type="submit"
+          />
+          <B24Button
+            label="Cancel"
+            color="air-tertiary"
+            size="lg"
+            @click="open = false"
           />
         </div>
       </B24Form>
