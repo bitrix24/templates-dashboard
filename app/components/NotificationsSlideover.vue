@@ -19,7 +19,7 @@ const { data: notifications } = await useFetch<Notification[]>('/api/notificatio
     }"
   >
     <template #body>
-      <B24Card class="base-mode" :b24ui="{ body: '!px-0 !py-0' }">
+      <B24Card class="base-mode" :b24ui="{ body: 'px-0! py-0!' }">
         <NuxtLink
           v-for="notification in notifications"
           :key="notification.id"

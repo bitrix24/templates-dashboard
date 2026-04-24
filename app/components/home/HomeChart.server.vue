@@ -2,7 +2,7 @@
   <B24Card
     ref="cardRef"
     class="base-mode shrink-0"
-    :b24ui="{ root: 'overflow-visible', body: '!px-0 !pt-0 !pb-3' }"
+    :b24ui="{ root: 'overflow-visible', body: 'px-0! pt-0! pb-3!' }"
   >
     <template #header>
       <div>
