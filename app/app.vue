@@ -42,7 +42,6 @@ useSeoMeta({
   ogTitle: title,
   ogDescription: description,
   ogImage: 'https://bitrix24.github.io/b24ui/assets/templates/nuxt/dashboard-light.png',
-  twitterImage: 'https://bitrix24.github.io/b24ui/assets/templates/nuxt/dashboard-light.png',
   twitterCard: 'summary_large_image'
 })
 
