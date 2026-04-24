@@ -419,7 +419,7 @@ const pagination = ref({
           :class="[isSomeSelect ? 'sticky z-1 bottom-0 sm:-bottom-4 bitrix-mobile:bottom-0' : '']"
         >
           <B24Button
-            :disabled="!isSomeSelect"
+            :disabled="!isSomeSelect || isLoading"
             loading-auto
             label="Delete"
             :icon="CrossLIcon"
