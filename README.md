@@ -37,7 +37,6 @@ cp .env.example .env
 | `NUXT_PUBLIC_SITE_URL` | for prod | Public URL of the application (e.g. `https://example.com`). |
 | `NUXT_APP_BASE_URL` | for prod | Application base path (e.g. `/` or `/some-folder/`). |
 | `NUXT_ALLOWED_HOSTS` | for tunnels | Comma-separated allowed hosts for the Vite dev server (needed for ngrok and similar tunnels). |
-| `DEEPSEEK_API_KEY` | dev tool only | Used **only** by `pnpm run translate-ui`. Not needed to run the app. |
 
 ## Development Server
 
@@ -99,9 +98,3 @@ When registering the application in the Bitrix24 Partner Portal or as a local ap
 3. Select **Local Application**
 4. Fill in the URLs provided above and check the required **Scopes**.
 5. Click **Save** and open the app.
-
-# Translate
-
-```
-pnpm run translate-ui
-```
