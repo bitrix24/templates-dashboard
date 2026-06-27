@@ -143,6 +143,7 @@ export function buildChartData(sales: Sale[], dates: Date[]): DataRecord[] {
  */
 export function getLatestSales(sales: Sale[], limit: number = 5): Sale[] {
   return sales
+    .filter(sale => Boolean(sale.closedate)) // deals in progress have no closedate
     .sort((a, b) => new Date(b.closedate!).getTime() - new Date(a.closedate!).getTime())
-    .slice(-1 * limit)
+    .slice(0, limit)
 }

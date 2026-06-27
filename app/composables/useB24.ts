@@ -89,7 +89,13 @@ export const useB24 = () => {
 
       $b24Helper = getB24Helper()
       return set(b24)
-    } catch {
+    } catch (error) {
+      // Failing here is expected when the app runs outside a Bitrix24 frame
+      // (standalone / mock mode), so we don't surface it to the user. We still
+      // log it in development to aid debugging instead of swallowing silently.
+      if (import.meta.dev) {
+        buildLogger('useB24').error('initializeB24Frame failed, falling back to standalone mode', { error })
+      }
       // set(undefined)
     }
 
