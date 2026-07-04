@@ -10,7 +10,7 @@ A Nuxt 4 dashboard that ships as a browser-based Bitrix24 application. It works
 through the B24 Frame SDK. Every screen is composed from
 [`@bitrix24/b24ui-nuxt`](https://bitrix24.github.io/b24ui/) components and
 [`@bitrix24/b24icons-vue`](https://bitrix24.github.io/b24icons/) icons, and every
-visible string is localized across 20 locales.
+visible string is localized across 19 locales.
 
 ## Component API reference
 
@@ -80,6 +80,13 @@ Load only the references the task needs — don't read everything.
 | Add / change data (mock or CRM) | architecture, b24-integration, data-layer |
 | Add or change any visible text | i18n |
 | Wire something to Bitrix24 CRM | b24-integration, data-layer |
+
+## Known work / TODO
+
+See `AGENTS.md` → "Known Work / TODO" for the live list. In short: `app/pages/install.vue`
+needs a **full rewrite** (dedicated task, not the add-page recipe); a **localization
+pass** across all pages is pending; and an **AI anonymized feedback loop** is under
+development (delivery item, spec TBD).
 
 ## Before you finish
 

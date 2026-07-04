@@ -9,7 +9,7 @@
   imported per-icon (`import HomeIcon from '@bitrix24/b24icons-vue/outline/HomeIcon'`).
 - **[@bitrix24/b24jssdk](https://bitrix24.github.io/b24jssdk/)** + `-nuxt` — talks
   to Bitrix24 CRM from inside the app frame.
-- **@nuxtjs/i18n** — 20 locales, `no_prefix` strategy.
+- **@nuxtjs/i18n** — 19 locales, `no_prefix` strategy.
 - **@tanstack/vue-table**, **@unovis/vue** — tables and charts.
 - **zod** — schema validation.
 
@@ -64,5 +64,5 @@ notifications). A new navigable page must be registered in both. See
 
 ## Bitrix24 app shape
 
-The app installs at `/install` and needs the `crm` and `user_brief` scopes.
+The app installs at `/install` and declares scopes `user_brief`, `crm`, `tasks`, `entity` (`getRequiredRights()` in `useB24.ts`).
 See [b24-integration](guidelines/b24-integration.md).

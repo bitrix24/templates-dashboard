@@ -19,34 +19,55 @@ exists to eliminate. Bitrix24 access on this platform goes through
 
 ### Removal procedure
 
-1. **`package.json`** — delete both dependencies:
+> The SDK reaches further than one composable. **Find the full surface first, fix
+> every reference, and only then typecheck** — do not follow the file list below
+> as if it were exhaustive.
+
+1. **Map every reference before deleting anything.** Both the direct imports and
+   the files that depend on the SDK transitively through `useB24`:
+
+   ```bash
+   grep -rn "@bitrix24/b24jssdk\|useB24" app server
+   ```
+
+   Touch points at the time of writing (verify with the grep — treat as a
+   starting point, not a complete list):
+   - `app/composables/useB24.ts` — the SDK glue.
+   - `app/composables/useDealStats/index.ts` and `api.ts` — import `B24Frame` /
+     `SdkError`, call the CRM.
+   - `app/app.vue` — imports `B24Frame`, `Result`; uses them on mount.
+   - `app/pages/index.vue`, `app/pages/install.vue` — import the SDK / `useB24`.
+   - `app/components/UserMenu.vue` — imports `useB24` and `TypeSpecificUrl`.
+   - `app/types/index.d.ts` — imports `type ISODate` from the SDK. Replace it with
+     a local type (e.g. `type ISODate = string`) so the shared type layer keeps
+     compiling.
+
+2. **`useB24.ts` — reduce to a no-op, do not just delete the file.** It is imported
+   by several files; deleting it leaves dangling imports and breaks `typecheck`.
+   Replace its body with a stub that always reports "not connected" (`isInit()`
+   returns `false`) and keeps the same exported shape, or remove the file **and**
+   every import of it in the same pass.
+
+3. **`useDealStats/`** — keep the composable's public shape but drop the real-CRM
+   branch so it always returns the mock path (`generateMockStats` /
+   `generateMockChart` / `generateMockSales`); remove the `B24Frame` / `SdkError`
+   imports.
+
+4. **`package.json`** — delete both dependencies:
    - `@bitrix24/b24jssdk`
    - `@bitrix24/b24jssdk-nuxt`
 
-2. **`nuxt.config.ts`** — remove `'@bitrix24/b24jssdk-nuxt'` from the `modules`
+5. **`nuxt.config.ts`** — remove `'@bitrix24/b24jssdk-nuxt'` from the `modules`
    array (leave the other modules intact).
 
-3. **Code that imports the SDK** — find every usage and remove or replace it:
+6. **Keep the app on mock data & verify.** `server/api/*.json.get.ts` and the
+   `generateMock*` helpers already provide everything the UI needs.
 
    ```bash
-   grep -rn "@bitrix24/b24jssdk" app server
-   ```
-
-   Known touch points today:
-   - `app/composables/useB24.ts` — the whole composable is SDK glue; delete the
-     file (or reduce it to a no-op that always reports "not connected").
-   - `app/composables/useDealStats/` — `index.ts` and `api.ts` import
-     `B24Frame` / `SdkError` and call the CRM. Keep the composable's public shape,
-     but drop the real-CRM branch so it always returns the mock path
-     (`generateMockStats` / `generateMockChart` / `generateMockSales`).
-
-4. **Keep the app on mock data.** `server/api/*.json.get.ts` and the `generateMock*`
-   helpers already provide everything the UI needs. After removal:
-
-   ```bash
-   pnpm install      # refresh lockfile without the SDK
+   pnpm install      # refreshes pnpm-lock.yaml without the SDK — expected; commit it
    pnpm lint --fix
-   pnpm typecheck    # must be clean — no dangling SDK types
+   pnpm typecheck    # must be clean — if it reports dangling SDK/useB24 refs, a
+                     # touch point was missed: re-run the grep in step 1 and fix it
    pnpm dev          # app boots on mock data
    ```
 

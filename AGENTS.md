@@ -33,7 +33,7 @@ Nuxt 4 dashboard template that ships as a browser-based Bitrix24 app. It runs
 integration target chosen above, talks to the CRM either through the B24 Frame SDK
 (`@bitrix24/b24jssdk`, REST-API target) or through the Vibecoding platform.
 UI is composed entirely from `@bitrix24/b24ui-nuxt` components and
-`@bitrix24/b24icons-vue` icons. All user-facing text is localized (20 locales).
+`@bitrix24/b24icons-vue` icons. All user-facing text is localized (19 locales).
 
 ## Project Structure
 
@@ -78,8 +78,8 @@ pnpm translate-ui   # Sync locale files from en.json
 - **Data composables** follow the `useDealStats/` pattern — split into
   `api.ts` (B24 REST), `formatters.ts`, `helpers.ts`, `mocks.ts`, `index.ts`.
 - **B24 access** goes through `useB24()` only; never instantiate `B24Frame`
-  directly in components. Required scopes: `crm`, `user_brief`.
-- **JSDoc on Bitrix24 JS SDK code (required for contributors).** Any function that
+  directly in components. Required scopes: `user_brief`, `crm`, `tasks`, `entity` (see `getRequiredRights()` in `useB24.ts`).
+- **JSDoc on Bitrix24 JS SDK code (required; REST-API target only).** Any function that
   calls the Bitrix24 JS SDK (`@bitrix24/b24jssdk`) — e.g. `useDealStats/api.ts` —
   must carry JSDoc that documents params/returns **and** links to:
   - the REST API method it uses: <https://apidocs.bitrix24.com/> (link the concrete
@@ -132,6 +132,12 @@ Open items agents should be aware of (not yet covered by a recipe):
   All pages must be audited and every visible string moved to i18n keys. Formal
   localization requirements will be added here once that pass is scoped — until
   then follow the i18n guideline and keep `en.json` the source of truth.
+- **AI anonymized feedback loop (under development).** A planned mechanism for AI
+  agents to automatically emit **anonymized** feedback while working with the
+  template — errors, inaccuracies, improvement suggestions, and positive notes —
+  telemetry-style, with no PII or project content. The contour is still being
+  designed (spec + endpoint TBD); this is a delivery item, wired up once the
+  design is finalized.
 
 ## Before Submitting
 

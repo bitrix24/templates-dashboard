@@ -11,7 +11,7 @@
 This template runs as a browser app **inside the Bitrix24 frame**. It:
 
 - installs at `/install` (`app/pages/install.vue`);
-- requires scopes **`crm`** and **`user_brief`**;
+- requires scopes `user_brief`, `crm`, `tasks`, `entity` (declared by `getRequiredRights()` in `useB24.ts`);
 - registers with an Application URL and an Installation URL (see `README.md`).
 
 > `app/pages/install.vue` is a stub scheduled for a **full rewrite** — treat it as
