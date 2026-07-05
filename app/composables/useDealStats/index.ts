@@ -346,10 +346,12 @@ const _useDealStats = () => {
   })
 
   // ------------------------------------------------------------------------
-  // Reactivity: when the period or range changes, reload the data
+  // Reactivity: reload when the period/range changes, or when the locale
+  // changes (so the stat card titles/descriptions are rebuilt in the new
+  // language instead of staying in the previously rendered one).
   // ------------------------------------------------------------------------
   watch(
-    [period, range],
+    [period, range, locale],
     async () => {
       nextTick(async () => {
         await loadDeals()
