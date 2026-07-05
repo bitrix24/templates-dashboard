@@ -61,7 +61,7 @@ Load only the references the task needs — don't read everything.
 **Guidelines** — the requirements and patterns:
 - [architecture](references/architecture.md) — stack, layers, data flow, where things live
 - [conventions](references/guidelines/conventions.md) — Vue/TS/ESLint conventions, b24ui usage requirements, semantic colors, icons
-- [i18n](references/guidelines/i18n.md) — locale files, keys, `useI18n`, `translate-ui`
+- [i18n](references/guidelines/i18n.md) — locale files, keys, `useI18n`, mirroring locales
 - [b24-integration](references/guidelines/b24-integration.md) — `useB24`, `B24Frame`, jssdk, scopes, install flow
 
 **Recipes** — step-by-step for common tasks:

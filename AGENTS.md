@@ -49,8 +49,7 @@ app/
 server/api/            # *.json.get.ts mock endpoints (customers, mails, members, notifications)
 i18n/
 ├── i18n.ts            # contentLocales list
-└── locales/<code>.json # en.json is the source of truth; others are generated
-tools/translate.ui.ts  # i18n translation helper
+└── locales/<code>.json # en.json is the source of truth; mirror keys into the others
 ```
 
 ## Commands
@@ -62,7 +61,7 @@ pnpm generate       # Static generation
 pnpm preview        # Preview production build
 pnpm lint           # ESLint check (pnpm lint --fix to autofix)
 pnpm typecheck      # nuxt typecheck (vue-tsc)
-pnpm translate-ui   # Sync locale files from en.json
+pnpm test           # Run unit tests (vitest)
 ```
 
 ## Key Conventions
@@ -70,8 +69,8 @@ pnpm translate-ui   # Sync locale files from en.json
 - **Semantic colors only** — use b24ui tokens (`text-description`, `bg-elevated`,
   `border-muted`), never raw Tailwind palette (`text-gray-500`).
 - **No hard-coded strings** — every visible string goes through i18n (`useI18n` →
-  `t('page.<name>....')`). Add keys to `i18n/locales/en.json` first; it is the
-  source of truth for `pnpm translate-ui`.
+  `t('page.<name>....')`). Add keys to `i18n/locales/en.json` first (the source of
+  truth), then mirror the same keys into every other `i18n/locales/*.json`.
 - **b24ui components** — prefix `B24*`, resolved via `resolveComponent` or
   auto-import. For component APIs consult the b24ui skill / `llms.txt` (below).
 - **Feature components** live in `app/components/<feature>/`; keep pages thin.
@@ -113,7 +112,7 @@ and wiring the data layer).
 
 ```
 - [ ] 1. Create app/pages/<name>.vue (script setup lang="ts")
-- [ ] 2. Add i18n keys to i18n/locales/en.json, then run pnpm translate-ui
+- [ ] 2. Add i18n keys to i18n/locales/en.json, then mirror them into the other i18n/locales/*.json
 - [ ] 3. Register the route in the sidebar links + command palette (app/layouts/default.vue)
 - [ ] 4. Add a g-<key> shortcut in app/composables/useDashboard.ts if navigable
 - [ ] 5. Feature UI → app/components/<feature>/, data → app/composables/ or server/api

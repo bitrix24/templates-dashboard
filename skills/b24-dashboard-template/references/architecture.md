@@ -33,8 +33,8 @@ server/api/             Mock endpoints: <name>.json.get.ts returns static data,
                         consumed via useFetch('/api/<name>.json').
 i18n/
 ├── i18n.ts             contentLocales — the canonical locale list.
-└── locales/<code>.json One file per locale. en.json is the source of truth.
-tools/translate.ui.ts   Fills missing locale keys from en.json.
+└── locales/<code>.json One file per locale. en.json is the source of truth;
+                        mirror its keys into every other locale file by hand.
 ```
 
 ## Data flow

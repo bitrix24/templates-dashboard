@@ -55,7 +55,11 @@ const _useDealStats = () => {
   /**
    * Returns the active B24Frame instance, fetched at call time.
    * The instance may not exist yet when the composable is created, so it must
-   * never be cached at setup time. Throws when B24 is not initialized.
+   * never be cached at setup time.
+   *
+   * @returns the initialized B24Frame instance
+   * @throws {Error} when the Bitrix24 frame is not initialized. Call only behind
+   *   an `isUseB24` / `b24Instance.isInit()` guard.
    */
   function requireB24(): B24Frame {
     const b24 = b24Instance.get()

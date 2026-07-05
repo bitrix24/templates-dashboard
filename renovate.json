@@ -9,6 +9,7 @@
   "schedule": [
     "before 6am on monday"
   ],
+  "minimumReleaseAge": "3 days",
   "packageRules": [
     {
       "description": "Automerge patch and minor updates for non-major dependencies",
