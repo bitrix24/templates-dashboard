@@ -43,5 +43,28 @@
       "title": "Modo demo",
       "description": "Los cambios no se aplicarán."
     }
+  },
+  "common": {
+    "error": "Error"
+  },
+  "dealStats": {
+    "stats": {
+      "customers": {
+        "title": "Clientes",
+        "description": "The number of unique clients (Company or Contact) from closed deals across all pipelines during the reporting period."
+      },
+      "orders": {
+        "title": "Total de negociaciones",
+        "description": "The total number of deals across all pipelines during the reporting period."
+      },
+      "conversions": {
+        "title": "Negociaciones ganadas",
+        "description": "The number of successfully closed deals across all pipelines during the reporting period."
+      },
+      "revenue": {
+        "title": "Ingresos",
+        "description": "The total amount in {currency} of won deals across all pipelines during the reporting period."
+      }
+    }
   }
 }
