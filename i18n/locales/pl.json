@@ -11,6 +11,11 @@
         "title": "Zobacz nowe oferty",
         "line1": "Usuń użytkownika"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Błąd instalacji"
+      }
     }
   }
 }

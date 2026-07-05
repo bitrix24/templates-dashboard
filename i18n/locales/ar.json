@@ -11,6 +11,11 @@
         "title": "شاهد الصفقات الجديدة",
         "line1": "إزالة مستخدم"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installation error"
+      }
     }
   }
 }

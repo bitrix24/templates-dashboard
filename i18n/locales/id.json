@@ -11,6 +11,11 @@
         "title": "Lihat kesepakatan baru",
         "line1": "Hapus pengguna"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installation error"
+      }
     }
   }
 }

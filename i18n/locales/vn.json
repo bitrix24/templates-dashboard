@@ -11,6 +11,11 @@
         "title": "Xem giao dịch mới",
         "line1": "Xóa người dùng"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installation error"
+      }
     }
   }
 }

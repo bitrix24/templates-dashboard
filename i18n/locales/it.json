@@ -11,6 +11,11 @@
         "title": "Vedi nuovi affari",
         "line1": "Rimuovi utente"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Errore di installazione"
+      }
     }
   }
 }

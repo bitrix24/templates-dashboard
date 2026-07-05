@@ -11,6 +11,11 @@
         "title": "新しい取引を見る",
         "line1": "ユーザーを削除"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installation error"
+      }
     }
   }
 }

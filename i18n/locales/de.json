@@ -11,6 +11,11 @@
         "title": "Neue Angebote ansehen",
         "line1": "Benutzer entfernen"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installationsfehler"
+      }
     }
   }
 }

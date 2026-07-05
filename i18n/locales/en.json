@@ -47,6 +47,9 @@
         "finish": {
           "caption": "Completion"
         }
+      },
+      "toast": {
+        "errorTitle": "Installation error"
       }
     }
   }

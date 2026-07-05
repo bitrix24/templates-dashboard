@@ -123,10 +123,12 @@ and wiring the data layer).
 
 Open items agents should be aware of (not yet covered by a recipe):
 
-- **Install page needs a full rewrite.** `app/pages/install.vue` is a stub and
-  must be rewritten end-to-end (install flow, scope handshake, error states). It
-  is intentionally **not** covered by the add-page recipe — treat it as a
-  dedicated task, not a routine page addition.
+- **Install page.** `app/pages/install.vue` implements a **client-only** Bitrix24
+  install flow (init → placement → userFields → finish), modeled on
+  `bitrix24/b24-ai-starter`'s `install.client.vue` but with the `serverSide` step
+  intentionally dropped (see the header comment in the file). It is intentionally
+  **not** covered by the add-page recipe. The placement/userFields handlers are
+  demo bindings — adapt them to the real app before shipping.
 - **Localization pass across all pages.** Not every page is fully localized yet.
   All pages must be audited and every visible string moved to i18n keys. Formal
   localization requirements will be added here once that pass is scoped — until

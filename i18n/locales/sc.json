@@ -11,6 +11,11 @@
         "title": "查看新交易",
         "line1": "移除用户"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installation error"
+      }
     }
   }
 }

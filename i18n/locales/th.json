@@ -11,6 +11,11 @@
         "title": "ดูดีลใหม่",
         "line1": "ลบผู้ใช้"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installation error"
+      }
     }
   }
 }

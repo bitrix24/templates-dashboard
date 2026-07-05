@@ -83,10 +83,10 @@ Load only the references the task needs — don't read everything.
 
 ## Known work / TODO
 
-See `AGENTS.md` → "Known Work / TODO" for the live list. In short: `app/pages/install.vue`
-needs a **full rewrite** (dedicated task, not the add-page recipe); a **localization
+See `AGENTS.md` → "Known Work / TODO" for the live list. In short: a **localization
 pass** across all pages is pending; and an **AI anonymized feedback loop** is under
-development (delivery item, spec TBD).
+development (delivery item, spec TBD). `app/pages/install.vue` now implements a
+client-only install flow (its placement/userFields handlers are demo bindings).
 
 ## Before you finish
 

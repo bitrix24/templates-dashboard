@@ -11,6 +11,11 @@
         "title": "Ver nuevos tratos",
         "line1": "Eliminar usuario"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Error de instalación"
+      }
     }
   }
 }

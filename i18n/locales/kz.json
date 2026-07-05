@@ -11,6 +11,11 @@
         "title": "Жаңа мәмілелерді қараңыз",
         "line1": "Пайдаланушыны жою"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installation error"
+      }
     }
   }
 }
