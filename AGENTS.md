@@ -145,3 +145,7 @@ Open items agents should be aware of (not yet covered by a recipe):
 - [ ] No hard-coded user-facing strings (i18n keys added to `en.json`)
 - [ ] No raw Tailwind palette colors
 - [ ] Commit message is clear and scoped
+
+---
+
+_Last reviewed: 2026-07-05._

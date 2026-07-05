@@ -95,3 +95,7 @@ development (delivery item, spec TBD).
 - [ ] No hard-coded user-facing strings — keys added to `i18n/locales/en.json`
 - [ ] No raw Tailwind palette colors — semantic tokens only
 - [ ] New data renders standalone on mock data
+
+---
+
+_Last reviewed: 2026-07-05._
