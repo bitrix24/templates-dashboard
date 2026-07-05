@@ -93,6 +93,7 @@ pnpm typecheck
 
 ## Not this recipe: the install page
 
-`app/pages/install.vue` needs a **full rewrite** (install flow, scope handshake,
-error states) and is tracked as its own task. Do not treat it as a routine page
-addition.
+`app/pages/install.vue` implements the client-only Bitrix24 install flow
+(init → placement → userFields → finish; its placement/userFields handlers are demo
+bindings). It's a dedicated installation flow, not a routine page — don't model new
+pages on it or fold it into this recipe.

@@ -15,7 +15,33 @@
     "install": {
       "toast": {
         "errorTitle": "Kurulum hatası"
+      },
+      "seo": {
+        "title": "Uygulama Kurulumu"
+      },
+      "ui": {
+        "title": "Uygulama Kurulumu"
+      },
+      "step": {
+        "init": {
+          "caption": "Lütfen bir dakika bekleyin..."
+        },
+        "placement": {
+          "caption": "Widget'lar..."
+        },
+        "userFields": {
+          "caption": "Kullanıcı alanları..."
+        },
+        "finish": {
+          "caption": "Tamamlanıyor"
+        }
       }
+    }
+  },
+  "mock": {
+    "toast": {
+      "title": "Demo modu",
+      "description": "Değişiklikler uygulanmayacak."
     }
   }
 }

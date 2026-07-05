@@ -15,7 +15,33 @@
     "install": {
       "toast": {
         "errorTitle": "Erro de instalação"
+      },
+      "seo": {
+        "title": "Instalação do aplicativo"
+      },
+      "ui": {
+        "title": "Instalação do aplicativo"
+      },
+      "step": {
+        "init": {
+          "caption": "Aguarde um momento..."
+        },
+        "placement": {
+          "caption": "Widgets..."
+        },
+        "userFields": {
+          "caption": "Campos personalizados..."
+        },
+        "finish": {
+          "caption": "Conclusão"
+        }
       }
+    }
+  },
+  "mock": {
+    "toast": {
+      "title": "Modo demo",
+      "description": "As alterações não serão aplicadas."
     }
   }
 }

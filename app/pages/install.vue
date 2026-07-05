@@ -76,14 +76,14 @@ interface InstallInitData {
   appInfo: {
     ID: number
     CODE: string
-    VERSION: string
+    VERSION: number
     STATUS: string
     LICENSE: string
     LICENSE_FAMILY: string
     INSTALLED: boolean
   }
   profile: {
-    ID: number
+    ID: string
     ADMIN: boolean
     LAST_NAME?: string
     NAME?: string
@@ -141,12 +141,21 @@ async function makeInit(): Promise<void> {
   await b24.parent.setTitle(t('page.install.seo.title'))
 
   if (steps.value.init) {
-    const response = await b24.callBatch({
-      appInfo: { method: 'app.info' },
-      profile: { method: 'profile' },
-      userFieldTypeList: { method: 'userfieldtype.list' },
-      placementList: { method: 'placement.get' }
+    // Uses the modern v2 actions API (callBatch is deprecated in b24jssdk v2).
+    // These four reads are independent, so don't halt the batch on one failure.
+    const response = await b24.actions.v2.batch.make({
+      calls: {
+        appInfo: { method: 'app.info' },
+        profile: { method: 'profile' },
+        userFieldTypeList: { method: 'userfieldtype.list' },
+        placementList: { method: 'placement.get' }
+      },
+      options: { isHaltOnError: false }
     })
+
+    if (!response.isSuccess) {
+      throw new Error(response.getErrorMessages().join('; '))
+    }
 
     steps.value.init.data = response.getData() as unknown as InstallInitData
   }
@@ -162,13 +171,19 @@ async function makePlacement(): Promise<void> {
   }
 
   const b24 = requireB24()
+  // Bind handlers must be absolute URLs; NUXT_PUBLIC_SITE_URL must be configured.
+  if (!appUrl) {
+    throw new Error('NUXT_PUBLIC_SITE_URL is not set — cannot register the placement handler')
+  }
   const placement = 'CRM_DEAL_DETAIL_TAB'
   const handler = `${appUrl}/handler/placement-crm-deal-detail-tab`
   const placementList = (steps.value.init?.data as InstallInitData | undefined)?.placementList ?? []
   const exists = placementList.some(item => item.placement === placement && item.handler === handler)
 
   const calls = [
-    ...(exists ? [{ method: 'placement.unbind', params: { PLACEMENT: placement } }] : []),
+    // Pass HANDLER so unbind only removes this app's handler, not every handler
+    // registered on this placement.
+    ...(exists ? [{ method: 'placement.unbind', params: { PLACEMENT: placement, HANDLER: handler } }] : []),
     {
       method: 'placement.bind',
       params: {
@@ -182,7 +197,10 @@ async function makePlacement(): Promise<void> {
     }
   ]
 
-  await b24.callBatch(calls, true)
+  const response = await b24.actions.v2.batch.make({ calls, options: { isHaltOnError: true } })
+  if (!response.isSuccess) {
+    throw new Error(response.getErrorMessages().join('; '))
+  }
 }
 
 /**
@@ -194,25 +212,33 @@ async function makeUserFields(): Promise<void> {
   }
 
   const b24 = requireB24()
+  if (!appUrl) {
+    throw new Error('NUXT_PUBLIC_SITE_URL is not set — cannot register the user-field handler')
+  }
   const env = import.meta.dev ? 'dev' : 'prod'
   const typeId = `some_type_${env}`
   const typeList = (steps.value.init?.data as InstallInitData | undefined)?.userFieldTypeList ?? []
   const exists = typeList.some(item => item.USER_TYPE_ID === typeId)
 
-  await b24.callBatch([
-    {
-      method: exists ? 'userfieldtype.update' : 'userfieldtype.add',
-      params: {
-        USER_TYPE_ID: typeId,
-        HANDLER: `${appUrl}/handler/uf.demo`,
-        TITLE: `[${env}] Some Type`,
-        DESCRIPTION: 'Some Description',
-        OPTIONS: {
-          height: 105
+  const response = await b24.actions.v2.batch.make({
+    calls: [
+      {
+        method: exists ? 'userfieldtype.update' : 'userfieldtype.add',
+        params: {
+          USER_TYPE_ID: typeId,
+          HANDLER: `${appUrl}/handler/uf.demo`,
+          TITLE: `[${env}] Some Type`,
+          DESCRIPTION: 'Some Description',
+          OPTIONS: {
+            height: 105
+          }
         }
       }
-    }
-  ], false)
+    ]
+  })
+  if (!response.isSuccess) {
+    throw new Error(response.getErrorMessages().join('; '))
+  }
 }
 
 /**
@@ -289,6 +315,8 @@ onMounted(async () => {
       index++
     }
   } catch (error: unknown) {
+    // Drop the persistent demo-mode toast if the mock branch failed mid-way.
+    toast.remove('install-warning-mock')
     progressColor.value = 'air-primary-alert'
     $logger.error('Install failed', { error })
     toast.add({
