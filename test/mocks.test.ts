@@ -48,10 +48,13 @@ describe('generateMockChart', () => {
     expect(chart).toHaveLength(getDatesByPeriod(range, 'daily').length)
   })
 
-  it('each point carries a date and an amount for the currency', () => {
+  it('each point carries the matching date and an in-range amount for the currency', () => {
     const chart = generateMockChart('daily', range, 'EUR')
-    expect(chart[0]!.date).toBeInstanceOf(Date)
-    expect(typeof chart[0]!.amount.EUR).toBe('number')
+    expect(chart[0]!.date.getTime()).toBe(getDatesByPeriod(range, 'daily')[0]!.getTime())
+    const amount = chart[0]!.amount.EUR
+    expect(Number.isFinite(amount)).toBe(true)
+    expect(amount).toBeGreaterThanOrEqual(1000)
+    expect(amount).toBeLessThanOrEqual(10000)
   })
 })
 

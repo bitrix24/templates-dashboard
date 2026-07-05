@@ -1,4 +1,4 @@
-import { describe, it, expect } from 'vitest'
+import { describe, it, expect, vi, afterEach } from 'vitest'
 import {
   stripTags,
   formatCurrency,
@@ -18,6 +18,23 @@ describe('stripTags', () => {
 
   it('replaces non-breaking spaces with a regular space', () => {
     expect(stripTags('566 168.00')).toBe('566 168.00')
+  })
+})
+
+describe('stripTags (SSR / no-DOMParser fallback)', () => {
+  afterEach(() => {
+    vi.unstubAllGlobals()
+  })
+
+  it('strips tags and decodes entities without DOMParser', () => {
+    vi.stubGlobal('DOMParser', undefined)
+    expect(stripTags('<b>566</b>&nbsp;168.00 &euro;')).toBe('566 168.00 €')
+  })
+
+  it('decodes the ampersand last so &amp;lt; stays literal', () => {
+    vi.stubGlobal('DOMParser', undefined)
+    // double-escaped: must NOT collapse to "<"
+    expect(stripTags('&amp;lt;')).toBe('&lt;')
   })
 })
 

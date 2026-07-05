@@ -111,6 +111,21 @@ describe('groupSalesByDate', () => {
     expect(groups[t2]).toHaveLength(2)
     expect(groups[t1]).toHaveLength(0)
   })
+
+  it('picks the correct middle bucket across many timestamps (stresses the binary search)', () => {
+    const ts = [
+      new Date('2025-01-01T00:00:00.000Z').getTime(),
+      new Date('2025-02-01T00:00:00.000Z').getTime(),
+      new Date('2025-03-01T00:00:00.000Z').getTime(),
+      new Date('2025-04-01T00:00:00.000Z').getTime(),
+      new Date('2025-05-01T00:00:00.000Z').getTime()
+    ]
+    // closes on Mar 20 → largest ts <= closedate is the Mar 1 bucket (index 2)
+    const sale = makeSale({ closedate: '2025-03-20T00:00:00.000Z' })
+    const groups = groupSalesByDate([sale], ts)
+    expect(groups[ts[2]!]).toHaveLength(1)
+    ts.filter((_, i) => i !== 2).forEach(t => expect(groups[t]).toHaveLength(0))
+  })
 })
 
 describe('getDatesByPeriod', () => {
@@ -125,11 +140,10 @@ describe('getDatesByPeriod', () => {
     expect(dates[0]).toBeInstanceOf(Date)
   })
 
-  it('returns fewer points for weekly than daily', () => {
-    const weekly = getDatesByPeriod(range, 'weekly')
-    const daily = getDatesByPeriod(range, 'daily')
-    expect(weekly.length).toBeLessThan(daily.length)
-    expect(weekly.length).toBeGreaterThan(0)
+  it('buckets the Jan 1–31 range into 5 weeks (default Sunday start)', () => {
+    // date-fns eachWeekOfInterval defaults to weekStartsOn: 0 (Sunday); no options
+    // are passed, so the count is deterministic regardless of locale.
+    expect(getDatesByPeriod(range, 'weekly')).toHaveLength(5)
   })
 
   it('returns a single point for the monthly period within one month', () => {
