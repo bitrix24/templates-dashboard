@@ -3,7 +3,8 @@ import {
   calculateVariation,
   getLatestSales,
   buildChartData,
-  groupSalesByDate
+  groupSalesByDate,
+  getDatesByPeriod
 } from '../app/composables/useDealStats/helpers'
 import type { Sale } from '../app/types'
 
@@ -90,6 +91,49 @@ describe('groupSalesByDate', () => {
     const t1 = new Date('2025-01-01T00:00:00.000Z').getTime()
     const groups = groupSalesByDate([makeSale({ closedate: null })], [t1])
     expect(groups[t1]).toHaveLength(0)
+  })
+
+  it('drops a sale whose closedate precedes the earliest timestamp', () => {
+    const t1 = new Date('2025-02-01T00:00:00.000Z').getTime()
+    const t2 = new Date('2025-03-01T00:00:00.000Z').getTime()
+    const sale = makeSale({ closedate: '2025-01-15T00:00:00.000Z' }) // before t1
+    const groups = groupSalesByDate([sale], [t1, t2])
+    expect(groups[t1]).toHaveLength(0)
+    expect(groups[t2]).toHaveLength(0)
+  })
+
+  it('assigns a sale on/after the last timestamp to the last bucket', () => {
+    const t1 = new Date('2025-01-01T00:00:00.000Z').getTime()
+    const t2 = new Date('2025-02-01T00:00:00.000Z').getTime()
+    const onLast = makeSale({ id: 1, closedate: '2025-02-01T00:00:00.000Z' })
+    const afterLast = makeSale({ id: 2, closedate: '2025-05-01T00:00:00.000Z' })
+    const groups = groupSalesByDate([onLast, afterLast], [t1, t2])
+    expect(groups[t2]).toHaveLength(2)
+    expect(groups[t1]).toHaveLength(0)
+  })
+})
+
+describe('getDatesByPeriod', () => {
+  const range = {
+    start: new Date('2025-01-01T00:00:00.000Z'),
+    end: new Date('2025-01-31T00:00:00.000Z')
+  }
+
+  it('returns one date per day for the daily period', () => {
+    const dates = getDatesByPeriod(range, 'daily')
+    expect(dates).toHaveLength(31)
+    expect(dates[0]).toBeInstanceOf(Date)
+  })
+
+  it('returns fewer points for weekly than daily', () => {
+    const weekly = getDatesByPeriod(range, 'weekly')
+    const daily = getDatesByPeriod(range, 'daily')
+    expect(weekly.length).toBeLessThan(daily.length)
+    expect(weekly.length).toBeGreaterThan(0)
+  })
+
+  it('returns a single point for the monthly period within one month', () => {
+    expect(getDatesByPeriod(range, 'monthly')).toHaveLength(1)
   })
 })
 
