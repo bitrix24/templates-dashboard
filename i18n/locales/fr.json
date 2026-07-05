@@ -11,6 +11,37 @@
         "title": "Voir les nouvelles affaires",
         "line1": "Supprimer l'utilisateur"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Erreur d'installation"
+      },
+      "seo": {
+        "title": "Installation de l'application"
+      },
+      "ui": {
+        "title": "Installation de l'application"
+      },
+      "step": {
+        "init": {
+          "caption": "Veuillez patienter un instant..."
+        },
+        "placement": {
+          "caption": "Widgets..."
+        },
+        "userFields": {
+          "caption": "Champs personnalisés..."
+        },
+        "finish": {
+          "caption": "Finalisation"
+        }
+      }
+    }
+  },
+  "mock": {
+    "toast": {
+      "title": "Mode démo",
+      "description": "Les modifications ne seront pas appliquées."
     }
   }
 }

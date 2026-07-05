@@ -21,30 +21,27 @@
       },
       "step": {
         "init": {
-          "caption": "Нужно немного подождать..."
-        },
-        "demo": {
-          "caption": "Примеры..."
-        },
-        "events": {
-          "caption": "События..."
+          "caption": "Пожалуйста, подождите..."
         },
         "placement": {
           "caption": "Виджеты..."
         },
         "userFields": {
-          "caption": "Uf..."
-        },
-        "crm": {
-          "caption": "CRM..."
-        },
-        "serverSide": {
-          "caption": "Серверные скрипты..."
+          "caption": "Пользовательские поля..."
         },
         "finish": {
           "caption": "Завершение"
         }
+      },
+      "toast": {
+        "errorTitle": "Ошибка установки"
       }
+    }
+  },
+  "mock": {
+    "toast": {
+      "title": "Демо-режим",
+      "description": "Изменения не будут применены."
     }
   }
 }

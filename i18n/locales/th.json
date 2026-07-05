@@ -11,6 +11,37 @@
         "title": "ดูดีลใหม่",
         "line1": "ลบผู้ใช้"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installation error"
+      },
+      "seo": {
+        "title": "Application Installation"
+      },
+      "ui": {
+        "title": "Application Installation"
+      },
+      "step": {
+        "init": {
+          "caption": "Please wait a moment..."
+        },
+        "placement": {
+          "caption": "Widgets..."
+        },
+        "userFields": {
+          "caption": "User fields..."
+        },
+        "finish": {
+          "caption": "Completion"
+        }
+      }
+    }
+  },
+  "mock": {
+    "toast": {
+      "title": "Demo Mode",
+      "description": "Changes will not be applied."
     }
   }
 }

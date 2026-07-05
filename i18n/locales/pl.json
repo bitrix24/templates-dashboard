@@ -11,6 +11,37 @@
         "title": "Zobacz nowe oferty",
         "line1": "Usuń użytkownika"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Błąd instalacji"
+      },
+      "seo": {
+        "title": "Instalacja aplikacji"
+      },
+      "ui": {
+        "title": "Instalacja aplikacji"
+      },
+      "step": {
+        "init": {
+          "caption": "Proszę czekać..."
+        },
+        "placement": {
+          "caption": "Widżety..."
+        },
+        "userFields": {
+          "caption": "Pola użytkownika..."
+        },
+        "finish": {
+          "caption": "Zakończenie"
+        }
+      }
+    }
+  },
+  "mock": {
+    "toast": {
+      "title": "Tryb demo",
+      "description": "Zmiany nie zostaną zastosowane."
     }
   }
 }

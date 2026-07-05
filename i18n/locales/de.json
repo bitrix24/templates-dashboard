@@ -11,6 +11,37 @@
         "title": "Neue Angebote ansehen",
         "line1": "Benutzer entfernen"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Installationsfehler"
+      },
+      "seo": {
+        "title": "Anwendungsinstallation"
+      },
+      "ui": {
+        "title": "Anwendungsinstallation"
+      },
+      "step": {
+        "init": {
+          "caption": "Bitte warten Sie einen Moment..."
+        },
+        "placement": {
+          "caption": "Widgets..."
+        },
+        "userFields": {
+          "caption": "Benutzerfelder..."
+        },
+        "finish": {
+          "caption": "Abschluss"
+        }
+      }
+    }
+  },
+  "mock": {
+    "toast": {
+      "title": "Demo-Modus",
+      "description": "Änderungen werden nicht übernommen."
     }
   }
 }

@@ -14,8 +14,10 @@ This template runs as a browser app **inside the Bitrix24 frame**. It:
 - requires scopes `user_brief`, `crm`, `tasks`, `entity` (declared by `getRequiredRights()` in `useB24.ts`);
 - registers with an Application URL and an Installation URL (see `README.md`).
 
-> `app/pages/install.vue` is a stub scheduled for a **full rewrite** — treat it as
-> a dedicated task, not a routine page.
+> `app/pages/install.vue` implements a **client-only** install flow
+> (init → placement → userFields → finish), modeled on `bitrix24/b24-ai-starter`'s
+> `install.client.vue` with the `serverSide` step intentionally dropped (see the
+> header comment in the file). The placement/userFields handlers are demo bindings.
 
 ## Access only through `useB24()`
 

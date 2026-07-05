@@ -29,24 +29,18 @@
         "init": {
           "caption": "Please wait a moment..."
         },
-        "events": {
-          "caption": "Events..."
-        },
         "placement": {
           "caption": "Widgets..."
         },
         "userFields": {
-          "caption": "Uf..."
-        },
-        "crm": {
-          "caption": "CRM..."
-        },
-        "serverSide": {
-          "caption": "Server-side scripts..."
+          "caption": "User fields..."
         },
         "finish": {
           "caption": "Completion"
         }
+      },
+      "toast": {
+        "errorTitle": "Installation error"
       }
     }
   }

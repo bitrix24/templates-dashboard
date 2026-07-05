@@ -11,6 +11,37 @@
         "title": "Vedi nuovi affari",
         "line1": "Rimuovi utente"
       }
+    },
+    "install": {
+      "toast": {
+        "errorTitle": "Errore di installazione"
+      },
+      "seo": {
+        "title": "Installazione dell'applicazione"
+      },
+      "ui": {
+        "title": "Installazione dell'applicazione"
+      },
+      "step": {
+        "init": {
+          "caption": "Attendere un momento..."
+        },
+        "placement": {
+          "caption": "Widget..."
+        },
+        "userFields": {
+          "caption": "Campi utente..."
+        },
+        "finish": {
+          "caption": "Completamento"
+        }
+      }
+    }
+  },
+  "mock": {
+    "toast": {
+      "title": "Modalità demo",
+      "description": "Le modifiche non verranno applicate."
     }
   }
 }
