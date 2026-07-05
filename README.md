@@ -26,6 +26,18 @@ Make sure to install the dependencies:
 pnpm install
 ```
 
+Then create your local environment file from the example and fill in the values:
+
+```bash
+cp .env.example .env
+```
+
+| Variable | Required | Description |
+| :--- | :--- | :--- |
+| `NUXT_PUBLIC_SITE_URL` | for prod | Public URL of the application (e.g. `https://example.com`). |
+| `NUXT_APP_BASE_URL` | for prod | Application base path (e.g. `/` or `/some-folder/`). |
+| `NUXT_ALLOWED_HOSTS` | for tunnels | Comma-separated allowed hosts for the Vite dev server (needed for ngrok and similar tunnels). |
+
 ## Development Server
 
 Start the development server on `http://localhost:3000`:
@@ -50,9 +62,13 @@ pnpm preview
 
 Check out the [deployment documentation](https://nuxt.com/docs/getting-started/deployment) for more information.
 
-> [!NOTE]
-> The idea is that this template can be used as a full-fledged Bitrix24 application. And without connecting to Bitrix24, it can display test data.
-> As soon as we do this, we'll add instructions here.
+## Development without Bitrix24
+
+This template works both as a full-fledged Bitrix24 application and standalone.
+When it is launched outside of a Bitrix24 frame (e.g. plain `pnpm dev` in the
+browser), the Bitrix24 frame fails to initialize and the dashboard automatically
+falls back to generated test data. This lets you develop and preview the UI
+without a Bitrix24 account.
 
 # As B24 App
 
@@ -63,6 +79,8 @@ A browser-based application for Bitrix24.
 The following permissions must be enabled in the application settings:
 * `crm` — access to CRM entities.
 * `user_brief` — access to basic user profile data.
+* `tasks` — access to tasks.
+* `entity` — access to storage entities.
 
 ## Configuration
 
@@ -80,9 +98,3 @@ When registering the application in the Bitrix24 Partner Portal or as a local ap
 3. Select **Local Application**
 4. Fill in the URLs provided above and check the required **Scopes**.
 5. Click **Save** and open the app.
-
-# Translate
-
-```
-pnpm run translate-ui
-```

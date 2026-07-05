@@ -142,7 +142,11 @@ export function buildChartData(sales: Sale[], dates: Date[]): DataRecord[] {
  * const latest = getLatestSales(allSales, 10)
  */
 export function getLatestSales(sales: Sale[], limit: number = 5): Sale[] {
+  // The type guard narrows the array to deals that actually have a closedate
+  // (deals in progress have none), so the sort below needs no non-null assertion
+  // and the invariant is enforced by the type system, not by convention.
   return sales
-    .sort((a, b) => new Date(b.closedate!).getTime() - new Date(a.closedate!).getTime())
-    .slice(-1 * limit)
+    .filter((sale): sale is Sale & { closedate: string } => Boolean(sale.closedate))
+    .sort((a, b) => new Date(b.closedate).getTime() - new Date(a.closedate).getTime())
+    .slice(0, limit)
 }

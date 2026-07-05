@@ -30,7 +30,7 @@ Keep it thin: compose components, wire data via a composable or
 
 - Add keys under `page.<name>.*` in `i18n/locales/en.json`.
 - Reference them with `t('...')` — no literal strings.
-- Run `pnpm run translate-ui` to fill the other locales.
+- Mirror the same keys into every other `i18n/locales/*.json` (no automated sync tool).
 
 See [i18n](../guidelines/i18n.md).
 
@@ -83,7 +83,7 @@ pnpm typecheck
 
 ```
 - [ ] app/pages/<name>.vue created (script setup lang="ts", thin)
-- [ ] i18n keys in en.json + pnpm run translate-ui
+- [ ] i18n keys in en.json + mirrored into every other i18n/locales/*.json
 - [ ] sidebar link added in app/layouts/default.vue (icon + t() label)
 - [ ] g-<key> shortcut in useDashboard.ts (if navigable)
 - [ ] data wired (mock server/api or composable); prerender route if needed

@@ -49,7 +49,8 @@ async function onChange() {
     color: 'air-primary-success'
   })
 
-  console.log(state)
+  // TODO: persist the notification settings to your backend / Bitrix24 here
+  if (import.meta.dev) console.log(state)
 }
 </script>
 

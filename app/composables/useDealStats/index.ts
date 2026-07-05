@@ -50,8 +50,28 @@ const _useDealStats = () => {
   // -----------------------------------------------------------------------
   const b24Instance = useB24()
   const $logger = b24Instance.buildLogger('useDealStats')
-  const $b24 = b24Instance.get() as B24Frame
   const isUseB24 = computed<boolean>(() => b24Instance.isInit())
+
+  /**
+   * Returns the active B24Frame instance, fetched at call time.
+   * The instance may not exist yet when the composable is created, so it must
+   * never be cached at setup time.
+   *
+   * @returns the initialized B24Frame instance
+   * @throws {SdkError} when the Bitrix24 frame is not initialized. Call only
+   *   behind an `isUseB24` / `b24Instance.isInit()` guard.
+   */
+  function requireB24(): B24Frame {
+    const b24 = b24Instance.get()
+    if (!b24) {
+      throw new SdkError({
+        code: 'JSSDK_NOT_INITIALIZED',
+        description: 'Bitrix24 frame is not initialized',
+        status: 500
+      })
+    }
+    return b24
+  }
 
   // ------------------------------------------------------------------------
   // Computed locales
@@ -162,6 +182,7 @@ const _useDealStats = () => {
    * Retrieves deals for the current and previous periods, creates a chart and lists the latest deals.
    */
   async function processCrmData(): Promise<void> {
+    const $b24 = requireB24()
     const dates = getDatesByPeriod(range.value, period.value)
     const previousStart = sub(range.value.start, { years: 1 })
     const previousEnd = sub(range.value.end, { years: 1 })
@@ -281,7 +302,7 @@ const _useDealStats = () => {
    */
   async function openDealHandler(row: Sale) {
     if (!isUseB24.value || !row.editPath) return
-    return openDeal($b24, row.editPath)
+    return openDeal(requireB24(), row.editPath)
   }
 
   // ------------------------------------------------------------------------

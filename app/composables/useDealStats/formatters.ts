@@ -9,10 +9,32 @@
  *
  * @example
  * formatHtmlString('566&nbsp;168.00 &euro;') // Returns: "566 168.00 €"
+ *
+ * @remarks
+ * In the browser the full {@link DOMParser} decodes any HTML entity. The
+ * non-DOM (SSR) fallback only handles the small entity set the Bitrix24 currency
+ * formatter actually emits (`&nbsp;`, `&euro;`, `&lt;`, `&gt;`, `&amp;`). It is
+ * **not** a general-purpose HTML decoder — do not feed it arbitrary/untrusted
+ * HTML. `&amp;` is decoded last so a double-escaped `&amp;lt;` stays literal
+ * instead of collapsing to `<`, matching the DOMParser path.
  */
-export function stripTags(html: string) {
+export function stripTags(html: string): string {
+  // DOMParser is a browser-only API. Fall back to a lightweight decode on the
+  // server (or any non-DOM environment) to avoid a ReferenceError during SSR.
+  if (typeof DOMParser === 'undefined') {
+    return html
+      .replace(/<[^>]*>/g, '')
+      .replace(/&nbsp;/g, ' ')
+      .replace(/&euro;/g, '\u20ac')
+      .replace(/&lt;/g, '<')
+      .replace(/&gt;/g, '>')
+      .replace(/&amp;/g, '&') // decode ampersand last to avoid double-decoding
+      .replace(/\u00a0/g, ' ')
+      .trim()
+  }
+
   const doc = new DOMParser().parseFromString(html, 'text/html')
-  return doc.body.textContent.replace(/\u00a0/g, ' ').trim()
+  return (doc.body.textContent ?? '').replace(/\u00a0/g, ' ').trim()
 }
 
 /**

@@ -32,7 +32,8 @@ async function onSubmit(event: FormSubmitEvent<ProfileSchema>) {
     icon: CheckLIcon,
     color: 'air-primary-success'
   })
-  console.log(event.data)
+  // TODO: send the profile data to your backend / Bitrix24 here
+  if (import.meta.dev) console.log(event.data)
 }
 
 function onFileChange(e: Event) {
