@@ -43,5 +43,28 @@
       "title": "Demo modu",
       "description": "Değişiklikler uygulanmayacak."
     }
+  },
+  "common": {
+    "error": "Hata"
+  },
+  "dealStats": {
+    "stats": {
+      "customers": {
+        "title": "Müşteriler",
+        "description": "The number of unique clients (Company or Contact) from closed deals across all pipelines during the reporting period."
+      },
+      "orders": {
+        "title": "Toplam anlaşma",
+        "description": "The total number of deals across all pipelines during the reporting period."
+      },
+      "conversions": {
+        "title": "Kazanılan anlaşmalar",
+        "description": "The number of successfully closed deals across all pipelines during the reporting period."
+      },
+      "revenue": {
+        "title": "Gelir",
+        "description": "The total amount in {currency} of won deals across all pipelines during the reporting period."
+      }
+    }
   }
 }

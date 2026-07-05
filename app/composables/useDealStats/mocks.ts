@@ -7,17 +7,26 @@ import GraphsDiagramIcon from '@bitrix24/b24icons-vue/outline/GraphsDiagramIcon'
 import WalletIcon from '@bitrix24/b24icons-vue/outline/WalletIcon'
 import ShoppingCartIcon from '@bitrix24/b24icons-vue/outline/ShoppingCartIcon'
 
+/** Localized titles for the mock stat cards (passed in from a component with i18n). */
+export interface MockStatLabels {
+  customers: string
+  conversions: string
+  orders: string
+  revenue: string
+}
+
 /**
  * Generates mock data for statistics cards.
  *
  * @param locale - Locale for currency formatting
  * @param currency - Default currency
+ * @param labels - Localized card titles (the composable resolves these via i18n)
  * @returns Array of Stat objects to display in cards
  */
-export function generateMockStats(locale: string, currency: string): Stat[] {
+export function generateMockStats(locale: string, currency: string, labels: MockStatLabels): Stat[] {
   const baseStats = [
     {
-      title: 'Customers',
+      title: labels.customers,
       icon: ContactIcon,
       minValue: 400,
       maxValue: 1000,
@@ -25,7 +34,7 @@ export function generateMockStats(locale: string, currency: string): Stat[] {
       maxVariation: 25
     },
     {
-      title: 'Conversions',
+      title: labels.conversions,
       icon: GraphsDiagramIcon,
       minValue: 1000,
       maxValue: 2000,
@@ -33,7 +42,7 @@ export function generateMockStats(locale: string, currency: string): Stat[] {
       maxVariation: 20
     },
     {
-      title: 'Orders',
+      title: labels.orders,
       icon: ShoppingCartIcon,
       minValue: 100,
       maxValue: 300,
@@ -41,7 +50,7 @@ export function generateMockStats(locale: string, currency: string): Stat[] {
       maxVariation: 15
     },
     {
-      title: 'Revenue',
+      title: labels.revenue,
       icon: WalletIcon,
       minValue: 200000,
       maxValue: 500000,

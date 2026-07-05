@@ -43,5 +43,28 @@
         "errorTitle": "Installation error"
       }
     }
+  },
+  "common": {
+    "error": "Error"
+  },
+  "dealStats": {
+    "stats": {
+      "customers": {
+        "title": "Customers",
+        "description": "The number of unique clients (Company or Contact) from closed deals across all pipelines during the reporting period."
+      },
+      "orders": {
+        "title": "Total Deals",
+        "description": "The total number of deals across all pipelines during the reporting period."
+      },
+      "conversions": {
+        "title": "Won Deals",
+        "description": "The number of successfully closed deals across all pipelines during the reporting period."
+      },
+      "revenue": {
+        "title": "Revenue",
+        "description": "The total amount in {currency} of won deals across all pipelines during the reporting period."
+      }
+    }
   }
 }

@@ -27,7 +27,7 @@ const _useDealStats = () => {
   // ------------------------------------------------------------------------
   // States
   // ------------------------------------------------------------------------
-  const { locale } = useI18n()
+  const { locale, t } = useI18n()
 
   const range = shallowRef<Range>({
     start: sub(new Date(), { months: 6 }),
@@ -135,8 +135,8 @@ const _useDealStats = () => {
 
   function buildRevenue(currency: string): Stat {
     return {
-      title: 'Revenue',
-      descriptions: `The total amount in ${currency} of won deals across all pipelines during the reporting period.`,
+      title: t('dealStats.stats.revenue.title'),
+      descriptions: t('dealStats.stats.revenue.description', { currency }),
       icon: WalletIcon,
       value: 0,
       formatValue: formatCurrencyLocal(0, currency),
@@ -157,7 +157,12 @@ const _useDealStats = () => {
 
       if (!isUseB24.value) {
         // Without B24 - using mocks
-        stats.value = generateMockStats(localeCode.value, defaultCurrency.value)
+        stats.value = generateMockStats(localeCode.value, defaultCurrency.value, {
+          customers: t('dealStats.stats.customers.title'),
+          conversions: t('dealStats.stats.conversions.title'),
+          orders: t('dealStats.stats.orders.title'),
+          revenue: t('dealStats.stats.revenue.title')
+        })
         chart.value = generateMockChart(period.value, range.value, defaultCurrency.value)
         sales.value = generateMockSales(defaultCurrency.value)
         return
@@ -166,7 +171,7 @@ const _useDealStats = () => {
       await processCrmData()
     } catch (error) {
       toast.add({
-        title: 'Error',
+        title: t('common.error'),
         description: error instanceof Error ? error.message : `${error}`,
         color: 'air-primary-alert',
         icon: CloudErrorIcon
@@ -190,9 +195,9 @@ const _useDealStats = () => {
     try {
       // Reset statistics cards before loading
       const statMap = new Map<string, Stat>([
-        ['customers', { title: 'Customers', descriptions: 'The number of unique clients (Company or Contact) from closed deals across all pipelines during the reporting period.', icon: ContactIcon, value: 0, formatValue: '0', variation: null }],
-        ['orders', { title: 'Total Deals', descriptions: 'The total number of deals across all pipelines during the reporting period.', icon: ShoppingCartIcon, value: 0, formatValue: '0', variation: null }],
-        ['conversions', { title: 'Won Deals', descriptions: 'The number of successfully closed deals across all pipelines during the reporting period.', icon: GraphsDiagramIcon, value: 0, formatValue: '0', variation: null }]
+        ['customers', { title: t('dealStats.stats.customers.title'), descriptions: t('dealStats.stats.customers.description'), icon: ContactIcon, value: 0, formatValue: '0', variation: null }],
+        ['orders', { title: t('dealStats.stats.orders.title'), descriptions: t('dealStats.stats.orders.description'), icon: ShoppingCartIcon, value: 0, formatValue: '0', variation: null }],
+        ['conversions', { title: t('dealStats.stats.conversions.title'), descriptions: t('dealStats.stats.conversions.description'), icon: GraphsDiagramIcon, value: 0, formatValue: '0', variation: null }]
       ])
 
       updateStats(statMap)

@@ -129,10 +129,12 @@ Open items agents should be aware of (not yet covered by a recipe):
   intentionally dropped (see the header comment in the file). It is intentionally
   **not** covered by the add-page recipe. The placement/userFields handlers are
   demo bindings — adapt them to the real app before shipping.
-- **Localization pass across all pages.** Not every page is fully localized yet.
-  All pages must be audited and every visible string moved to i18n keys. Formal
-  localization requirements will be added here once that pass is scoped — until
-  then follow the i18n guideline and keep `en.json` the source of truth.
+- **Localization pass across all pages (issue #7, in progress).** The `useDealStats`
+  composable, `install.vue`, and app-level toasts are localized, and a
+  `fallbackLocale: 'en'` safety net is in place. Still to do: `inbox`, `customers`,
+  `index`, and the `settings/*` pages still carry hard-coded strings. Follow the
+  finalized rules in the i18n guideline; keep `en.json` the source of truth and key
+  sets identical across locales.
 - **AI anonymized feedback loop (under development).** A planned mechanism for AI
   agents to automatically emit **anonymized** feedback while working with the
   template — errors, inaccuracies, improvement suggestions, and positive notes —
