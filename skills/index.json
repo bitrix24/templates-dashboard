@@ -1,0 +1,18 @@
+{
+  "skills": [
+    {
+      "name": "b24-dashboard-template",
+      "description": "Work on the Bitrix24 Nuxt Dashboard Template — a starter B24 app built with @bitrix24/b24ui-nuxt, running on mock data standalone and on CRM data when embedded in Bitrix24. Use when adding pages, components, composables, mock/real data, or localized strings to this template.",
+      "files": [
+        "SKILL.md",
+        "references/architecture.md",
+        "references/guidelines/conventions.md",
+        "references/guidelines/i18n.md",
+        "references/guidelines/b24-integration.md",
+        "references/recipes/setup-target.md",
+        "references/recipes/add-page.md",
+        "references/recipes/data-layer.md"
+      ]
+    }
+  ]
+}
