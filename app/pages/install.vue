@@ -178,12 +178,13 @@ async function makePlacement(): Promise<void> {
   const placement = 'CRM_DEAL_DETAIL_TAB'
   const handler = `${appUrl}/handler/placement-crm-deal-detail-tab`
   const placementList = (steps.value.init?.data as InstallInitData | undefined)?.placementList ?? []
-  const exists = placementList.some(item => item.placement === placement && item.handler === handler)
+  // Key the idempotency check on the placement alone: if any prior binding exists
+  // (even one pointing at a now-stale handler URL after a domain change), clear
+  // all of this app's handlers for it and rebind the current one.
+  const exists = placementList.some(item => item.placement === placement)
 
   const calls = [
-    // Pass HANDLER so unbind only removes this app's handler, not every handler
-    // registered on this placement.
-    ...(exists ? [{ method: 'placement.unbind', params: { PLACEMENT: placement, HANDLER: handler } }] : []),
+    ...(exists ? [{ method: 'placement.unbind', params: { PLACEMENT: placement } }] : []),
     {
       method: 'placement.bind',
       params: {
@@ -300,7 +301,8 @@ onMounted(async () => {
       await sleepAction(3000)
 
       toast.remove('install-warning-mock')
-      return router.replace('/')
+      await router.replace('/')
+      return
       // endregion ////
     }
 
