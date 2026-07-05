@@ -58,13 +58,17 @@ const _useDealStats = () => {
    * never be cached at setup time.
    *
    * @returns the initialized B24Frame instance
-   * @throws {Error} when the Bitrix24 frame is not initialized. Call only behind
-   *   an `isUseB24` / `b24Instance.isInit()` guard.
+   * @throws {SdkError} when the Bitrix24 frame is not initialized. Call only
+   *   behind an `isUseB24` / `b24Instance.isInit()` guard.
    */
   function requireB24(): B24Frame {
     const b24 = b24Instance.get()
     if (!b24) {
-      throw new Error('Bitrix24 frame is not initialized')
+      throw new SdkError({
+        code: 'JSSDK_NOT_INITIALIZED',
+        description: 'Bitrix24 frame is not initialized',
+        status: 500
+      })
     }
     return b24
   }

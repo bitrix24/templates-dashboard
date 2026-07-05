@@ -17,6 +17,9 @@ export const useB24 = () => {
     return LoggerFactory.createForBrowser(loggerTitle ?? 'dashBoard', devMode)
   }
 
+  // Reused logger for this composable (avoids rebuilding one per call site).
+  const $logger = buildLogger('useB24')
+
   function get() {
     return $b24
   }
@@ -94,7 +97,7 @@ export const useB24 = () => {
       // (standalone / mock mode), so we don't surface it to the user. We still
       // log it in development to aid debugging instead of swallowing silently.
       if (import.meta.dev) {
-        buildLogger('useB24').error('initializeB24Frame failed, falling back to standalone mode', { error })
+        $logger.error('initializeB24Frame failed, falling back to standalone mode', { error })
       }
       // set(undefined)
     }
