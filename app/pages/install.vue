@@ -141,7 +141,7 @@ async function makeInit(): Promise<void> {
   await b24.parent.setTitle(t('page.install.seo.title'))
 
   if (steps.value.init) {
-    // Uses the modern v2 actions API (callBatch is deprecated in b24jssdk v2).
+    // Uses the modern v2 actions API (callBatch was removed in b24jssdk v3).
     // These four reads are independent, so don't halt the batch on one failure.
     const response = await b24.actions.v2.batch.make({
       calls: {
