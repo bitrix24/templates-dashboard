@@ -15,7 +15,7 @@
   },
   "engines": {
     "node": ">=22",
-    "pnpm": ">=10"
+    "pnpm": ">=12"
   },
   "dependencies": {
     "@bitrix24/b24icons-vue": "^2.0.8",
@@ -43,12 +43,12 @@
   "devDependencies": {
     "@nuxt/eslint": "^1.17.0",
     "@types/luxon": "^3.7.6",
-    "@types/node": "^26.6.4",
+    "@types/node": "^26.6.3",
     "eslint": "^10.11.0",
     "happy-dom": "^20.14.5",
     "typescript": "^6.0.3",
     "vitest": "^5.0.3",
     "vue-tsc": "^3.3.11"
   },
-  "packageManager": "pnpm@10.33.0"
+  "packageManager": "pnpm@12.6.0"
 }
